@@ -130,18 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 639094085952765589, guid: c38897ce7a12e8941884fefe3373187d, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3130973487116794606, guid: c38897ce7a12e8941884fefe3373187d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 3130973487116794606, guid: c38897ce7a12e8941884fefe3373187d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3470982312684460624, guid: c38897ce7a12e8941884fefe3373187d, type: 3}
       propertyPath: m_Name
       value: Rope
