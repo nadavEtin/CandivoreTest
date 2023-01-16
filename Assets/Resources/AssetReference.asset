@@ -57,3 +57,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2576a7847df704d4abe3d9f0f579cea5, type: 3}
   - {fileID: 21300000, guid: 637689fcc076f2946b75370cde7f7a32, type: 3}
   - {fileID: 21300000, guid: 728c265f64b9a4c4f84f24385e7c9340, type: 3}
+  PrizeShelf: {fileID: 2715659638825107604, guid: fb4d566fc53f7e142bfb8ad74365b5d0, type: 3}
+  Pinata: {fileID: 8962858467898671899, guid: 129afca098267784581f19ee4a06df47, type: 3}

@@ -19,8 +19,8 @@ namespace Assets.Scripts.Utility
                 startingPos.y + screenHeight * Randomizer.GetNumberInRange(0.009f, 0.015f), 0);
             TweenCallback tweenCallback = new TweenCallback(animationEndCb);
             Sequence movementSeq = DOTween.Sequence();
-            movementSeq.Append(objectToMove.transform.DOMove(firstPos, 0.4f).SetEase(Ease.OutSine))
-                .Append(objectToMove.transform.DOMove(secondPos, 0.5f).SetEase(Ease.InQuad))
+            movementSeq.Append(objectToMove.transform.DOMove(firstPos, 0.3f).SetEase(Ease.OutSine))
+                .Append(objectToMove.transform.DOMove(secondPos, 0.3f).SetEase(Ease.InQuad))
                 .Append(objectToMove.transform.DOMove(thirdPos, 0.2f).SetEase(Ease.InSine))
                 .Append(objectToMove.transform.DOMove(startingPos, 0.17f).SetEase(Ease.InSine))
                 .AppendCallback(tweenCallback);
