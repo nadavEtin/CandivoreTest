@@ -9,19 +9,20 @@ namespace DefaultNamespace
 {
     public class PinataGameManager : MonoBehaviour
     {
-        private AssetReferences _assetRef;
+        private AssetReference _assetRef;
         private GameParameters _gameParams;
         private List<IPrizeShelf> _prizeShelves;
         
         private void Awake()
         {
-            _assetRef = Resources.Load<AssetReferences>("AssetReference");
+            _assetRef = Resources.Load<AssetReference>("AssetReference");
             _gameParams = Resources.Load<GameParameters>("GameParams");
         }
 
         private void Start()
         {
             GeneralData.InitValues();
+            _assetRef.Init();
             InitPinataGame();
         }
 

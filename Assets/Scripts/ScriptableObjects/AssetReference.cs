@@ -1,12 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utility;
 using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "AssetReference", menuName = "ScriptableObjects/Asset Reference")]
-    public class AssetReferences : ScriptableObject
+    public enum ObjectTypes
     {
+        HeartReward, BombReward, ConfettiParticle,
+        PrizeShelf
+    }
+    
+    [CreateAssetMenu(fileName = "AssetReference", menuName = "ScriptableObjects/Asset Reference")]
+    public class AssetReference : ScriptableObject
+    {
+        public Dictionary<ObjectTypes, GameObject> PrefabTypes { private set; get; }
+
+        public void Init()
+        {
+            PrefabTypes = new Dictionary<ObjectTypes, GameObject>
+            {
+                {ObjectTypes.PrizeShelf, PrizeShelf}, { ObjectTypes.ConfettiParticle, ConfettiParticle }
+            };
+        }
+        
         [Header("Sprites")]
         [Space(3)]
         public List<Sprite> bombs = new List<Sprite>();
@@ -21,6 +38,7 @@ namespace Assets.Scripts.ScriptableObjects
         [Space(3)]
         public GameObject PrizeShelf;
         public GameObject Pinata;
+        public GameObject ConfettiParticle;
     }
 }
 

@@ -8,6 +8,11 @@ namespace Assets.Scripts.Utility
         {
             return Random.Range(lowEnd, highEnd);
         }
+        
+        public static int GetNumberInRange(int lowEnd, int highEnd)
+        {
+            return Random.Range(lowEnd, highEnd);
+        }
 
         public static int GetPositiveOrNegative()
         {
