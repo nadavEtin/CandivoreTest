@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.GameplayObjects;
+using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -7,10 +10,13 @@ namespace DefaultNamespace
     public class PinataGameManager : MonoBehaviour
     {
         private AssetReferences _assetRef;
+        private GameParameters _gameParams;
+        private List<IPrizeShelf> _prizeShelves;
         
         private void Awake()
         {
             _assetRef = Resources.Load<AssetReferences>("AssetReference");
+            _gameParams = Resources.Load<GameParameters>("GameParams");
         }
 
         private void Start()
@@ -29,10 +35,15 @@ namespace DefaultNamespace
             var prizeShelf = _assetRef.PrizeShelf;
             if (prizeShelf == null) 
                 return;
-            
-            var shelf1 = Instantiate(prizeShelf);
-            var shelf2 = Instantiate(prizeShelf);
-            shelf1.GetComponent<SpriteRenderer>().size = new Vector2(Camera.main.pixelWidth, 1);
+
+            for (int i = 0; i < _gameParams.InitialShelfCount && i < _gameParams.PrizeShelfHeight.Count; i++)
+            {
+                var newShelf = Instantiate(prizeShelf).GetComponent<IPrizeShelf>();
+                newShelf.gameObject.transform.position = new Vector3(0, 0 - GeneralData.HalfScreenHeight * _gameParams.PrizeShelfHeight[i], 0);
+                newShelf.Init(_gameParams.PrizeShelfMaxCap);
+                _prizeShelves.Add(newShelf);
+                newShelf.gameObject.SetActive(false);                
+            }
         }
     }
 }

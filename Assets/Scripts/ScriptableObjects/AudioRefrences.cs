@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "AudioReference", menuName = "ScriptableObjects/AudioRefrence")]
+    [CreateAssetMenu(fileName = "AudioReference", menuName = "ScriptableObjects/Audio Refrence")]
     public class AudioRefrences : ScriptableObject
     {
-        [SerializeField] private List<AudioClip> _pinataBigHitSfx;
-        [SerializeField] private List<AudioClip> _pinataSmallHitSfx;
-        [SerializeField] private List<AudioClip> _pinataHitVoice;
-        [SerializeField] private List<AudioClip> _pinataFinalSmashVoice;
-        [SerializeField] private AudioClip _pinataFinalSmashSound, _pinataFallDownSound, _pinataIntro;
+        public List<AudioClip> PinataBigHitSfx;
+        public List<AudioClip> PinataSmallHitSfx;
+        public List<AudioClip> PinataHitVoice;
+        public List<AudioClip> PinataFinalSmashVoice;
+        public AudioClip PinataFinalSmashSound, PinataFallDownSound, PinataIntro;
     }
 }

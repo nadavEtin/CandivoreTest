@@ -29,8 +29,7 @@ namespace GameplayObjects
 
         private void PositionPinata()
         {
-            var screenHeight = Camera.main.orthographicSize * 2;
-            transform.position = new Vector3(0, 0 + screenHeight * 0.1f, 0);
+            transform.position = new Vector3(0, 0 + GeneralData.HalfScreenHeight * 0.2f, 0);
             _pinataStartingPos = transform.position;
         }
 
