@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +9,18 @@ namespace Assets.Scripts.ScriptableObjects
         [Header("Prize shelves")]
         [Space(3)]
         public List<float> PrizeShelfHeight;
-        //public float FirstShelfHeight;
-        //public float SecondShelfHeight;
         public int InitialShelfCount, PrizeShelfMaxCap;
+
+        [Space(10)]
+        [Header("Pinata")]
+        [Space(3)]
+        public float IdlePinataScreenHeight;
+
+        [Space(10)]
+        [Header("Audio")]
+        [Space(3)]
+        public float MusicVolume;
+        public float SoundVolume;
     }
 }
 

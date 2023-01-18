@@ -1,12 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
-namespace GameplayObjects
+namespace Assets.Scripts.GameplayObjects
 {
-    public class Rope : MonoBehaviour
+    public class Rope : MonoBehaviour, IRope
     {
-        [SerializeField] private Transform _pinataAnchorPoint;
+        private Transform _pinataAnchorPoint;
+
+        public void Init(Transform anchorPoint)
+        {
+            _pinataAnchorPoint = anchorPoint;
+            transform.position = _pinataAnchorPoint.position;
+        }
 
         void Update()
         {

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Assets.Scripts.ScriptableObjects
 {
@@ -12,23 +7,37 @@ namespace Assets.Scripts.ScriptableObjects
     {
         PinataBigHitSound, PinataSmallHitSound, PinataHitVoice,
         PinataFinalSmashVoice, PinataFinalSmashSound,
-        PinataFallDownSound, PinataIntro
+        PinataFallDownSound, PinataIntro, ThemeMusic
     }
 
     [CreateAssetMenu(fileName = "AudioReference", menuName = "ScriptableObjects/Audio Reference")]
     public class AudioReference : ScriptableObject
     {
-        public Dictionary<AudioTypes, AudioContent> AudioClipTypes { private set; get; }
+        public Dictionary<AudioTypes, List<AudioClip>> MultipleAudioClipTypes { private set; get; }
+        public Dictionary<AudioTypes, AudioClip> SingleAudioClipTypes { private set; get; }
 
-        public List<AudioClip> PinataBigHitSound;
-        public List<AudioClip> PinataSmallHitSound;
-        public List<AudioClip> PinataHitVoice;
-        public List<AudioClip> PinataFinalSmashVoice;
-        public AudioClip PinataFinalSmashSound, PinataFallDownSound, PinataIntro;
+        [SerializeField] private List<AudioClip> PinataBigHitSound;
+        [SerializeField] private List<AudioClip> PinataSmallHitSound;
+        [SerializeField] private List<AudioClip> PinataHitVoice;
+        [SerializeField] private List<AudioClip> PinataFinalSmashVoice;
+        [SerializeField] private AudioClip PinataFinalSmashSound, PinataFallDownSound, PinataIntro, ThemeMusic;
 
         public void Init()
         {
-            
+            MultipleAudioClipTypes = new Dictionary<AudioTypes, List<AudioClip>>
+            {
+                { AudioTypes.PinataBigHitSound, PinataBigHitSound },
+                { AudioTypes.PinataSmallHitSound, PinataSmallHitSound },
+                { AudioTypes.PinataHitVoice, PinataHitVoice },
+                { AudioTypes.PinataFinalSmashVoice, PinataFinalSmashVoice }
+            };
+            SingleAudioClipTypes = new Dictionary<AudioTypes, AudioClip>
+            {
+                { AudioTypes.PinataFinalSmashSound, PinataFinalSmashSound },
+                { AudioTypes.PinataFallDownSound, PinataFallDownSound },
+                { AudioTypes.PinataIntro, PinataIntro },
+                { AudioTypes.ThemeMusic, ThemeMusic}
+            };
         }
     }
 }

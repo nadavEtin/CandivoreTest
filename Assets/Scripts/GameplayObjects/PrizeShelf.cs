@@ -6,7 +6,7 @@ namespace Assets.Scripts.GameplayObjects
     public class PrizeShelf : MonoBehaviour, IPrizeShelf
     {
         private int _maxRewardCap;
-        private List<IPrize> _heldPrizes;
+        //private List<IPrize> _heldPrizes;
 
         public void Init(int maxRewardCap) 
         {
@@ -15,7 +15,7 @@ namespace Assets.Scripts.GameplayObjects
 
         private void Start()
         {
-            _heldPrizes = new List<IPrize>();
+            //_heldPrizes = new List<IPrize>();
         }
     }
 }

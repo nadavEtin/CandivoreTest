@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.GameplayObjects
 {
-    public enum PrizeType
-    {
-        Bomb, Lightning, Gem
-    }
-
-    public interface IPrize
+    public interface IPinataPrizeGenerator
     {
 
     }

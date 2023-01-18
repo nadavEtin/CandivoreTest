@@ -8,7 +8,7 @@ namespace Assets.Scripts.ScriptableObjects
     public enum ObjectTypes
     {
         HeartReward, BombReward, ConfettiParticle,
-        PrizeShelf
+        PrizeShelf, PinataRope
     }
     
     [CreateAssetMenu(fileName = "AssetReference", menuName = "ScriptableObjects/Asset Reference")]
@@ -39,6 +39,7 @@ namespace Assets.Scripts.ScriptableObjects
         public GameObject PrizeShelf;
         public GameObject Pinata;
         public GameObject ConfettiParticle;
+        public GameObject PinataRope;
     }
 }
 

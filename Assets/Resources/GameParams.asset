@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddf016959e25e041b2da651ff5eb66a, type: 3}
   m_Name: GameParams
   m_EditorClassIdentifier: 
-  FirstShelfHalfScreenHeight: 0.48
-  SecondShelfHalfScreenHeight: 0.18
+  PrizeShelfHeight:
+  - 0.52
+  - 0.22
+  InitialShelfCount: 2
+  PrizeShelfMaxCap: 4
+  IdlePinataScreenHeight: 0.2
+  MusicVolume: 0.5
+  SoundVolume: 0.6

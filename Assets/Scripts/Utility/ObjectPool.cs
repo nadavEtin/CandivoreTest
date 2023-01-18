@@ -23,6 +23,7 @@ namespace Assets.Scripts.Utility
                 _objectPool.Add(type, new List<GameObject>());
             
             _objectPool[type].Add(obj);
+            obj.SetActive(false);
         }
 
         public GameObject GetObjectFromPool(ObjectTypes type)
@@ -31,6 +32,7 @@ namespace Assets.Scripts.Utility
             {
                 var returnObj = _objectPool[type][0];
                 _objectPool[type].RemoveAt(0);
+                returnObj.SetActive(true);
                 return returnObj;
             }
             else if (_assetRefs.PrefabTypes.ContainsKey(type))

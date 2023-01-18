@@ -1,18 +1,39 @@
-﻿using Assets.Scripts.Utility;
+﻿using Assets.Scripts;
+using Assets.Scripts.GameplayObjects.GameplayObjUtility;
+using Assets.Scripts.Managers;
+using Assets.Scripts.ScriptableObjects;
+using Assets.Scripts.Utility;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameplayObjects
+namespace Assets.Scripts.GameplayObjects
 {
     public class Pinata : MonoBehaviour, IPinata
     {
         [SerializeField] private GameObject _idle, _idleCracked, _hit;
         [SerializeField] private GameObject _head, _front, _tail;
+        [SerializeField] private Transform _ropeAnchorPoint, _prizeSpawnPoint;
 
+        private IAudioManager _audioManager;
+        private IAnimationManager _animationManager;
+        private IObjectPool _objectPool;
+        private AssetReference _assetReference;
+        private GameParameters _gameParams;
         private List<IColliderScript> _childColliders;
         private List<GameObject> _childObjects;
         private Vector3 _pinataStartingPos;
+        private bool _movementAnimPlaying;
+
+        public void Init(IAudioManager audioManager, IAnimationManager animationManager, IObjectPool objectPool,
+            AssetReference assetReference, GameParameters gameParameters)
+        {
+            _audioManager = audioManager;
+            _animationManager = animationManager;
+            _assetReference = assetReference;
+            _gameParams = gameParameters;
+            _objectPool = objectPool;
+        }
 
         private void Start()
         {
@@ -24,12 +45,13 @@ namespace GameplayObjects
             }
             EnableDisableChildObjects(false);
             _idle.SetActive(true);
+            Instantiate(_assetReference.PinataRope).GetComponent<IRope>().Init(_ropeAnchorPoint);
             PositionPinata();
         }
 
         private void PositionPinata()
         {
-            transform.position = new Vector3(0, 0 + GeneralData.HalfScreenHeight * 0.2f, 0);
+            transform.position = new Vector3(0, 0 + GeneralData.HalfScreenHeight * _gameParams.IdlePinataScreenHeight, 0);
             _pinataStartingPos = transform.position;
         }
 
@@ -43,15 +65,23 @@ namespace GameplayObjects
 
         private void PinataClick()
         {
+            if (_movementAnimPlaying)
+                return;
+            var particleFx = _objectPool.GetObjectFromPool(ObjectTypes.ConfettiParticle);
+            particleFx.GetComponent<IParticleScript>().Init(_objectPool.AddObjectToPool, ObjectTypes.ConfettiParticle);
+            particleFx.transform.position = _prizeSpawnPoint.position;
+            particleFx.GetComponent<ParticleSystem>().Play();
+            _movementAnimPlaying = true;
             EnableDisableChildObjects(false);
             _hit.SetActive(true);
-            AnimationManager.PinataHitMovement(gameObject, _pinataStartingPos, PinataMovementAnimEnd);
+
+            _audioManager.PlaySound(AudioTypes.PinataSmallHitSound);
+            _animationManager.PinataHitMovement(gameObject, _hit, _idleCracked, _pinataStartingPos, PinataMovementAnimEnd);
         }
 
         private void PinataMovementAnimEnd()
         {
-            EnableDisableChildObjects(false);
-            _idleCracked.SetActive(true);
+            _movementAnimPlaying = false;
         }
     }
 }

@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6985891982945672025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ee65354957fe84b8dcf591df245877, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8ffa3a2e7103a4694051e4e8cb4602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &2118294542
@@ -344,6 +344,37 @@ Transform:
   m_Father: {fileID: 8962858467898671898}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7551708653583180206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5502252079565086425}
+  m_Layer: 0
+  m_Name: Reward/FxSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5502252079565086425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7551708653583180206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06, y: -1.413, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8962858467898671898}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8962858467898671899
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8962858467898671899}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.028, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -380,6 +411,7 @@ Transform:
   - {fileID: 8962858469328008691}
   - {fileID: 8962858468117103328}
   - {fileID: 441438429307070230}
+  - {fileID: 5502252079565086425}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -401,6 +433,8 @@ MonoBehaviour:
   _head: {fileID: 8962858468612643208}
   _front: {fileID: 8962858469328008700}
   _tail: {fileID: 8962858468117103329}
+  _ropeAnchorPoint: {fileID: 441438429307070230}
+  _prizeSpawnPoint: {fileID: 5502252079565086425}
 --- !u!1 &8962858468117103329
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8962858468244977371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.08, y: 0, z: 0}
   m_LocalScale: {x: 0.41, y: 0.41, z: 0.41}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -672,7 +706,6 @@ GameObject:
   - component: {fileID: 113169302920030609}
   - component: {fileID: 813008546244270328}
   - component: {fileID: 1102248140898222785}
-  - component: {fileID: 6090349382041562830}
   m_Layer: 0
   m_Name: Idle
   m_TagString: Untagged
@@ -756,7 +789,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8962858469256306102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ee65354957fe84b8dcf591df245877, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8ffa3a2e7103a4694051e4e8cb4602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &263833138
@@ -967,18 +1000,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.341105, y: 1.7470152}
   m_EdgeRadius: 0
---- !u!114 &6090349382041562830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8962858469256306102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ee65354957fe84b8dcf591df245877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8962858469328008700
 GameObject:
   m_ObjectHideFlags: 0
