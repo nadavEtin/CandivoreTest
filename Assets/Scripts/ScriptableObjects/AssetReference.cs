@@ -8,7 +8,7 @@ namespace Assets.Scripts.ScriptableObjects
     public enum ObjectTypes
     {
         HeartPrize, BombPrize, LightningPrize,
-        StickerPrize, BoosterPrize, CrystalPrize
+        StickerPrize, BoosterPrize, CrystalPrize,
         ConfettiParticle, PrizeShelf, PinataRope
     }
     
@@ -21,7 +21,10 @@ namespace Assets.Scripts.ScriptableObjects
         {
             PrefabTypes = new Dictionary<ObjectTypes, GameObject>
             {
-                {ObjectTypes.PrizeShelf, PrizeShelf}, { ObjectTypes.ConfettiParticle, ConfettiParticle }
+                { ObjectTypes.PrizeShelf, PrizeShelf }, { ObjectTypes.ConfettiParticle, ConfettiParticle },
+                { ObjectTypes.BombPrize, Bomb }, { ObjectTypes.BoosterPrize, Booster }, { ObjectTypes.CrystalPrize, Crystal },
+                { ObjectTypes.HeartPrize, Heart}, { ObjectTypes.LightningPrize, Lightning },
+                { ObjectTypes.StickerPrize, Sticker }
             };
         }
         
@@ -46,7 +49,7 @@ namespace Assets.Scripts.ScriptableObjects
         [Header("Prizes")]
         [Space(3)]
         [SerializeField] private GameObject Bomb;
-        [SerializeField] private GameObject Heart, Lighning, Sticker, Booster, Crystal;
+        [SerializeField] private GameObject Heart, Lightning, Sticker, Booster, Crystal;
     }
 }
 

@@ -3,10 +3,17 @@ using UnityEngine;
 
 namespace Assets.Scripts.GameplayObjects
 {
+    struct PrizeParams
+    {
+        public Transform pos;
+        public GameObject prize;
+        
+    }
+    
     public class PrizeShelf : MonoBehaviour, IPrizeShelf
     {
         private int _maxRewardCap;
-        //private List<IPrize> _heldPrizes;
+        [SerializeField] private Transform _leftPos, _midPos, _rightPos;
 
         public void Init(int maxRewardCap) 
         {

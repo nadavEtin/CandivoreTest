@@ -18,21 +18,27 @@ namespace Assets.Scripts.GameplayObjects
         private IAudioManager _audioManager;
         private IAnimationManager _animationManager;
         private IObjectPool _objectPool;
+        private IPinataPrizeManager _prizeManager;
         private AssetReference _assetReference;
         private GameParameters _gameParams;
+        
         private List<IColliderScript> _childColliders;
         private List<GameObject> _childObjects;
         private Vector3 _pinataStartingPos;
         private bool _movementAnimPlaying;
+        private List<PrizeData> _pinataPrizes;
 
-        public void Init(IAudioManager audioManager, IAnimationManager animationManager, IObjectPool objectPool,
-            AssetReference assetReference, GameParameters gameParameters)
+        public void Init(IAudioManager audioManager, IAnimationManager animationManager, 
+            IObjectPool objectPool, AssetReference assetReference, GameParameters gameParameters)
         {
             _audioManager = audioManager;
             _animationManager = animationManager;
             _assetReference = assetReference;
             _gameParams = gameParameters;
             _objectPool = objectPool;
+            
+            _prizeManager = new PinataPrizeManager(assetReference, gameParameters);
+            _pinataPrizes = _prizeManager.GetPinataPrizes();
         }
 
         private void Start()
