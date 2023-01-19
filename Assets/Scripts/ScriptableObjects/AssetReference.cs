@@ -7,8 +7,9 @@ namespace Assets.Scripts.ScriptableObjects
 {
     public enum ObjectTypes
     {
-        HeartReward, BombReward, ConfettiParticle,
-        PrizeShelf, PinataRope
+        HeartPrize, BombPrize, LightningPrize,
+        StickerPrize, BoosterPrize, CrystalPrize
+        ConfettiParticle, PrizeShelf, PinataRope
     }
     
     [CreateAssetMenu(fileName = "AssetReference", menuName = "ScriptableObjects/Asset Reference")]
@@ -34,12 +35,18 @@ namespace Assets.Scripts.ScriptableObjects
         public List<Sprite> boosters = new List<Sprite>();
 
         [Space(10)]
-        [Header("Prefabs")]
+        [Header("Gameplay objects")]
         [Space(3)]
         public GameObject PrizeShelf;
         public GameObject Pinata;
         public GameObject ConfettiParticle;
         public GameObject PinataRope;
+
+        [Space(10)]
+        [Header("Prizes")]
+        [Space(3)]
+        [SerializeField] private GameObject Bomb;
+        [SerializeField] private GameObject Heart, Lighning, Sticker, Booster, Crystal;
     }
 }
 

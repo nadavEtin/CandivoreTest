@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8132611933240354872}
   - component: {fileID: 8620215514651067978}
   m_Layer: 0
-  m_Name: CrystalReward
+  m_Name: CrystalPrize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

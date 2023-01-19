@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2018390848076317246}
   - component: {fileID: 6993560996328594952}
   m_Layer: 0
-  m_Name: HeartReward
+  m_Name: HeartPrize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
