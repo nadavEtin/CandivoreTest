@@ -4,6 +4,6 @@ namespace Assets.Scripts.GameplayObjects
 {
     public interface IColliderScript
     {
-        void init(Action onclickCallback);
+        void init(Action<float> onclickCallback);
     }
 }

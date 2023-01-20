@@ -23,6 +23,7 @@ namespace Assets.Scripts.Managers
             musicSource.clip = _audioRefs.SingleAudioClipTypes[AudioTypes.ThemeMusic];
             musicSource.loop = true;
             musicSource.volume = _gameParams.MusicVolume;
+            musicSource.Play();
             _audioSources.Add(musicSource);
             _audioSources.Add(asContainer.AddComponent<AudioSource>());
         }

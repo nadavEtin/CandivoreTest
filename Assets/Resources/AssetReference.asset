@@ -57,13 +57,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2576a7847df704d4abe3d9f0f579cea5, type: 3}
   - {fileID: 21300000, guid: 637689fcc076f2946b75370cde7f7a32, type: 3}
   - {fileID: 21300000, guid: 728c265f64b9a4c4f84f24385e7c9340, type: 3}
-  PrizeShelf: {fileID: 2715659638825107604, guid: fb4d566fc53f7e142bfb8ad74365b5d0, type: 3}
+  PrizeShelfContainer: {fileID: 3415218923770072493, guid: cb340b41d34e2e547821416854ec9a07, type: 3}
   Pinata: {fileID: 8962858467898671899, guid: 129afca098267784581f19ee4a06df47, type: 3}
   ConfettiParticle: {fileID: 6470918115184163093, guid: 6d467da7197cc924aaec4a517368115f, type: 3}
   PinataRope: {fileID: 3470982312684460624, guid: c38897ce7a12e8941884fefe3373187d, type: 3}
   Bomb: {fileID: 7052226617099007903, guid: 8538f1b94b15efd458dca61184d04821, type: 3}
   Heart: {fileID: 8018785542887057202, guid: ce4a02c0481deef4a85745a99ba27cce, type: 3}
-  Lighning: {fileID: 4027746802499314240, guid: 77302a56aeb1da541a104ef2efab0e09, type: 3}
+  Lightning: {fileID: 4027746802499314240, guid: 77302a56aeb1da541a104ef2efab0e09, type: 3}
   Sticker: {fileID: 1539075263990088246, guid: 162ea83aef9683b4ea7651ff3646138f, type: 3}
   Booster: {fileID: 2203455192345402673, guid: 35adb7689dd7a5341bdfc893fe56a30b, type: 3}
   Crystal: {fileID: 7215454898807322286, guid: a446605b9a7ddc642aa33ec011e6461a, type: 3}

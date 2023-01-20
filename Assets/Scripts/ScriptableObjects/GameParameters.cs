@@ -8,13 +8,15 @@ namespace Assets.Scripts.ScriptableObjects
     {
         [Header("Prize shelves")]
         [Space(3)]
-        public List<float> PrizeShelfHeight;
-        public int InitialShelfCount, PrizeShelfMaxCap;
+        public float ShelfContainerHeightPos;
 
         [Space(10)]
         [Header("Pinata")]
         [Space(3)]
         public float IdlePinataScreenHeight;
+        public int PinataClicksToDestroy, ShortClickPower, LongClickPower;
+        //minimum time of holding down the click to become a long click
+        public float LongClickThreshold;
 
         [Space(10)]
         [Header("Audio")]

@@ -7,8 +7,7 @@ namespace Assets.Scripts.GameplayObjects
 {
     public interface IPinata
     {
-        void Init(IAudioManager audioManager, IAnimationManager animationManager, IObjectPool objectPool,
-            AssetReference assetReference, GameParameters gameParameters);
+        void Init(IAudioManager audioManager, IAnimationManager animationManager, IObjectPool objectPool, IPrizeShelfContainer prizeShelf, AssetReference assetReference, GameParameters gameParameters);
     }
 }
 

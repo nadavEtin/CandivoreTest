@@ -32,3 +32,4 @@ MonoBehaviour:
   PinataFinalSmashSound: {fileID: 8300000, guid: 012134f23d1720f4b944209515f601bb, type: 3}
   PinataFallDownSound: {fileID: 8300000, guid: f0722f87fbc558c4d83d10e6e4352bc5, type: 3}
   PinataIntro: {fileID: 8300000, guid: 25c5da89d7fc29d4e95bd9abf8f186d7, type: 3}
+  ThemeMusic: {fileID: 8300000, guid: 20aafefd810d57c4a954fdfc05d7b205, type: 3}

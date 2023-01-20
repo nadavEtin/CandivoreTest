@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
-    public class PinataGameManager : MonoBehaviour
+    public class SceneManager : MonoBehaviour
     {
         private AssetReference _assetRef;
         private GameParameters _gameParams;
@@ -14,7 +14,7 @@ namespace Assets.Scripts.Managers
         private IAnimationManager _animManager;
         private IObjectPool _objectPool;
         private IPinata _pinata;
-        private List<IPrizeShelf> _prizeShelves;
+        private IPrizeShelfContainer _shelfContainer;
 
         private void Awake()
         {
@@ -24,7 +24,6 @@ namespace Assets.Scripts.Managers
 
         private void Start()
         {
-            _prizeShelves = new List<IPrizeShelf>();
             GeneralData.InitValues();
             _assetRef.Init();
             _audioManager = new AudioManager();
@@ -35,31 +34,22 @@ namespace Assets.Scripts.Managers
 
         private void InitPinataGame()
         {
-            CreatePinata();
             PrizeShelf();
+            CreatePinata();            
         }
 
         private void CreatePinata()
         {
-            _pinata = Instantiate(_assetRef.Pinata).GetComponent<IPinata>();
-            _pinata.Init(_audioManager, _animManager, _objectPool, _assetRef, _gameParams);
+            _pinata = Instantiate(_assetRef.PrefabTypes[ObjectTypes.Pinata]).GetComponent<IPinata>();
+            _pinata.Init(_audioManager, _animManager, _objectPool, _shelfContainer, _assetRef, _gameParams);
 
         }
 
         private void PrizeShelf()
         {
-            var prizeShelf = _assetRef.PrizeShelf;
-            if (prizeShelf == null)
-                return;
-
-            for (int i = 0; i < _gameParams.InitialShelfCount && i < _gameParams.PrizeShelfHeight.Count; i++)
-            {
-                var newShelf = Instantiate(prizeShelf).GetComponent<IPrizeShelf>();
-                newShelf.gameObject.transform.position = new Vector3(0, 0 - GeneralData.HalfScreenHeight * _gameParams.PrizeShelfHeight[i], 0);
-                newShelf.Init(_gameParams.PrizeShelfMaxCap);
-                _prizeShelves.Add(newShelf);
-                newShelf.gameObject.SetActive(false);
-            }
+            var shelfContainer = Instantiate(_assetRef.PrefabTypes[ObjectTypes.PrizeShelfContainer]);
+            shelfContainer.transform.position = new Vector3(0, 0 - GeneralData.HalfScreenHeight * _gameParams.ShelfContainerHeightPos, 0);
+            _shelfContainer = shelfContainer.GetComponent<IPrizeShelfContainer>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.ScriptableObjects;
+using UnityEngine;
 
 namespace Assets.Scripts.GameplayObjects
 {
@@ -6,6 +7,6 @@ namespace Assets.Scripts.GameplayObjects
     {
         GameObject gameObject { get; }
 
-        void Init(int maxRewardCap);
+        void Init(AssetReference assetReference);
     }
 }
