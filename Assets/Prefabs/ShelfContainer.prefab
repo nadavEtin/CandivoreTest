@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prizeShelves:
-  - {fileID: 6983927328375423224}
   - {fileID: 2389036970597437011}
+  - {fileID: 6983927328375423224}
 --- !u!1001 &729132295381174154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,7 +58,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6422250451354226516, guid: ad7528d6fd44d074a896d31e68e31de3, type: 3}
       propertyPath: m_Name
-      value: PrizeShelf (1)
+      value: BottomShelf
       objectReference: {fileID: 0}
     - target: {fileID: 7698306169936038940, guid: ad7528d6fd44d074a896d31e68e31de3, type: 3}
       propertyPath: m_Enabled
@@ -135,7 +135,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6422250451354226516, guid: ad7528d6fd44d074a896d31e68e31de3, type: 3}
       propertyPath: m_Name
-      value: PrizeShelf
+      value: TopShelf
       objectReference: {fileID: 0}
     - target: {fileID: 7698306169936038940, guid: ad7528d6fd44d074a896d31e68e31de3, type: 3}
       propertyPath: m_Enabled

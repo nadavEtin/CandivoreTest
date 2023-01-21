@@ -8,17 +8,33 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
 {
     public class PinataPrizeGenerator : IPinataPrizeGenerator
     {
+        private GameParameters _gameParams;
         private AssetReference _assetRef;
+        private List<ObjectTypes> _prizes;
+        private int prizesPerClick;
 
         public PinataPrizeGenerator(AssetReference assetRef, GameParameters gameParams)
         {
             _assetRef = assetRef;
+            _gameParams = gameParams;
+            _prizes = new List<ObjectTypes>();            
+            GeneratePinataPrizes();
+            prizesPerClick = (int)(_prizes.Count / _gameParams.PinataClicksToDestroy * 0.85f);
         }
 
-        public List<ObjectTypes> GetPinataPrizes()
+        public List<ObjectTypes> GetPinataPrizes(int hitPower, bool stillAlive)
+        {
+            var clickAmount = prizesPerClick * hitPower;
+            var currentClickPrizes = stillAlive ? _prizes.Take(clickAmount).ToList() : _prizes;
+            if (stillAlive)
+                _prizes.RemoveRange(0, clickAmount);
+            return currentClickPrizes;
+        }
+
+        private void GeneratePinataPrizes()
         {
             var selectedPrizeTypes = GetRandomPrizes(Randomizer.GetNumberInRange(3, 6));
-            return GeneratePrizeData(selectedPrizeTypes, 3, 10);
+            _prizes = GeneratePrizeData(selectedPrizeTypes, 5, 10);
         }
 
         private List<ObjectTypes> GeneratePrizeData(List<ObjectTypes> types, int minAmt, int maxAmt)

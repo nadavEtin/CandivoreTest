@@ -14,9 +14,10 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
             _hitPoints = _gameParams.PinataClicksToDestroy;
         }
 
-        public bool PinataClick(float clickDuration)
+        public bool PinataClick(float clickDuration, out int power)
         {
-            _hitPoints -= ClickPower(clickDuration);
+            power = ClickPower(clickDuration);
+            _hitPoints -= power;
             if(_hitPoints <= 0)
             {
                 //TODO: send game over event

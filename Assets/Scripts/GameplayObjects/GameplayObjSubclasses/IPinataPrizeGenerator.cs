@@ -5,6 +5,6 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
 {
     public interface IPinataPrizeGenerator
     {
-        List<ObjectTypes> GetPinataPrizes();
+        List<ObjectTypes> GetPinataPrizes(int clickPower, bool stillAlive);
     }
 }

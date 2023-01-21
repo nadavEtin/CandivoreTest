@@ -45,6 +45,12 @@ namespace Assets.Scripts.Managers
             FindAvailableSource(desiredClip);
         }
 
+        public void PinataClick(bool smallHit)
+        {
+            PlaySound(AudioTypes.PinataHitVoice);
+            PlaySound(smallHit ? AudioTypes.PinataSmallHitSound : AudioTypes.PinataBigHitSound);
+        }
+
         private void FindAvailableSource(AudioClip clip)
         {
             //Locate a free audio source if one is available

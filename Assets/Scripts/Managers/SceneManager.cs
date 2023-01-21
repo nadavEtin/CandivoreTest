@@ -48,8 +48,9 @@ namespace Assets.Scripts.Managers
         private void PrizeShelf()
         {
             var shelfContainer = Instantiate(_assetRef.PrefabTypes[ObjectTypes.PrizeShelfContainer]);
-            shelfContainer.transform.position = new Vector3(0, 0 - GeneralData.HalfScreenHeight * _gameParams.ShelfContainerHeightPos, 0);
+            shelfContainer.transform.position = new Vector3(0, _gameParams.ShelfContainerHeightPos, 0);
             _shelfContainer = shelfContainer.GetComponent<IPrizeShelfContainer>();
+            _shelfContainer.Init(_assetRef);
         }
     }
 }
