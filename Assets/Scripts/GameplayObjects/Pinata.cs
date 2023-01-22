@@ -30,6 +30,7 @@ namespace Assets.Scripts.GameplayObjects
         private List<ObjectTypes> _pinataPrizes;
         private IPinataHitPoints _hitPoints;
         private IPrizeShelfContainer _prizeShelfContainer;
+        private Transform _particleContainer;
 
         public void Init(IAudioManager audioManager, IAnimationManager animationManager,
             IObjectPool objectPool, IPrizeShelfContainer prizeShelf, AssetReference assetReference, GameParameters gameParameters)
@@ -43,6 +44,7 @@ namespace Assets.Scripts.GameplayObjects
 
             _prizeManager = new PinataPrizeGenerator(assetReference, gameParameters);
             _hitPoints = new PinataHitPoints(_gameParams);
+            _particleContainer = new GameObject().transform;
         }
 
         private void Start()
@@ -83,44 +85,39 @@ namespace Assets.Scripts.GameplayObjects
             var clickPrizes = _prizeManager.GetPinataPrizes(clickPower, stillAlive);
             _audioManager.PinataClick(clickPower == _gameParams.ShortClickPower);
             PrepareClickPrizes(clickPrizes);
-            //TODO: UNCOMMENT THIS
-            /*if (stillAlive)*/
+            if (stillAlive)
                 ClickAnimationAndParticles();
         }
 
         private void PrepareClickPrizes(List<ObjectTypes> prizes)
         {
             var orderedPrizes = prizes.OrderByDescending(x => (int)x).ToList();
-            var count = prizes.Where(x => x == orderedPrizes[0]).Count();
-            SendPrize(orderedPrizes[0], count);
-            orderedPrizes.RemoveRange(0, count);
+            while (orderedPrizes.Count > 0)
+            {
+                var count = prizes.Where(x => x == orderedPrizes[0]).Count();
+                SendPrize(orderedPrizes[0], count);
+                orderedPrizes.RemoveRange(0, count);
+            }
         }
 
         private void SendPrize(ObjectTypes type, int amount)
         {
             var prizeParticle = SpawnParticle(type);
             var prize = _prizeShelfContainer.ReceivePrize(type, amount, prizeParticle);
-            
-            /*_animationManager.MoveParticlesToShelf(prizeParticle.transform, prize.shelfPos.position, _animationManager.FadeIn,
-                prize.prizeObj.GetComponent<SpriteRenderer>());*/
-            //create particle fx for the prize and send it to its pos on the shelf via animation
         }
 
         private GameObject SpawnParticle(ObjectTypes type)
         {
-            var particle = _objectPool.GetObjectFromPool(_animationManager.PinataPrizeParticles[type]);
-            particle.GetComponent<IParticleScript>().Init(_objectPool.AddObjectToPool, type);
+            var particle = _objectPool.GetObjectFromPool(_animationManager.GetPrizeParticleType(type));
+            particle.GetComponent<IParticleScript>().Init(_objectPool.AddObjectToPool, _animationManager.GetPrizeParticleType(type));
             particle.transform.position = _prizeSpawnPoint.position;
             particle.GetComponent<ParticleSystem>().Play();
+            particle.transform.SetParent(_particleContainer, true);
             return particle;
         }
 
         private void ClickAnimationAndParticles()
         {
-            /*var confettiFx = _objectPool.GetObjectFromPool(ObjectTypes.ConfettiParticle);
-            confettiFx.GetComponent<IParticleScript>().Init(_objectPool.AddObjectToPool, ObjectTypes.ConfettiParticle);
-            confettiFx.transform.position = _prizeSpawnPoint.position;
-            confettiFx.GetComponent<ParticleSystem>().Play();*/
             SpawnParticle(ObjectTypes.ConfettiParticle);
             _movementAnimPlaying = true;
             EnableDisableChildObjects(false);
@@ -131,7 +128,6 @@ namespace Assets.Scripts.GameplayObjects
         private void PinataMovementAnimEnd()
         {
             StartCoroutine(AnimationDelay());
-            //_movementAnimPlaying = false;
         }
 
         //small delay to let particle animations finish

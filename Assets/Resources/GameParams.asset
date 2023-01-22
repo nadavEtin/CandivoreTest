@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameParams
   m_EditorClassIdentifier: 
   ShelfContainerHeightPos: -0.25
-  IdlePinataScreenHeight: 0.2
+  IdlePinataScreenHeight: 0.3
   PinataClicksToDestroy: 5
   ShortClickPower: 1
   LongClickPower: 2

@@ -67,7 +67,7 @@ MonoBehaviour:
   Sticker: {fileID: 1539075263990088246, guid: 162ea83aef9683b4ea7651ff3646138f, type: 3}
   Booster: {fileID: 2203455192345402673, guid: 35adb7689dd7a5341bdfc893fe56a30b, type: 3}
   Crystal: {fileID: 7215454898807322286, guid: a446605b9a7ddc642aa33ec011e6461a, type: 3}
-  BombParticle: {fileID: 7168880803896790048, guid: 9cabe2c433e236b438f4ba5d9e30af03, type: 3}
+  BombParticle: {fileID: 7168880803896790048, guid: c1700140fc8836d48a68febb62475cbb, type: 3}
   HeartParticle: {fileID: 7168880803896790048, guid: 707037bda057ac64b8034f1d1932ead1, type: 3}
   LightningParticle: {fileID: 7168880803896790048, guid: fe615f8fdd856bb44a054013fb386c1e, type: 3}
   StickerParticle: {fileID: 7168880803896790048, guid: 32c8d7f16ea76ab448470193835f441a, type: 3}

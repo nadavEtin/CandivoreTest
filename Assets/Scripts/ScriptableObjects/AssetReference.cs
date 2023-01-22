@@ -29,7 +29,7 @@ namespace Assets.Scripts.ScriptableObjects
                 { ObjectTypes.LightningParticle, LightningParticle }, { ObjectTypes.StickerParticle, StickerParticle }
             };
 
-            PinataPrizes = new List<ObjectTypes> { ObjectTypes.None, ObjectTypes.BombPrize, ObjectTypes.BoosterPrize,
+            PinataPrizes = new List<ObjectTypes> { ObjectTypes.BombPrize, ObjectTypes.BoosterPrize,
                 ObjectTypes.CrystalPrize, ObjectTypes.HeartPrize, ObjectTypes.LightningPrize, ObjectTypes.StickerPrize};
         }
 

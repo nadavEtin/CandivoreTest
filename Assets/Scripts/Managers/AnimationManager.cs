@@ -11,84 +11,63 @@ namespace Assets.Scripts.Managers
     {
         private AnimationParameters _animParams;
 
-        public Dictionary<ObjectTypes, ObjectTypes> PinataPrizeParticles { private set; get; }
+        private readonly Dictionary<ObjectTypes, ObjectTypes> _pinataPrizeParticles;
 
         public AnimationManager()
         {
             _animParams = Resources.Load<AnimationParameters>("AnimationParams");
 
-            PinataPrizeParticles = new Dictionary<ObjectTypes, ObjectTypes> { { ObjectTypes.BombPrize, ObjectTypes.BombParticle },
+            _pinataPrizeParticles = new Dictionary<ObjectTypes, ObjectTypes> { { ObjectTypes.BombPrize, ObjectTypes.BombParticle },
                 { ObjectTypes.BoosterPrize, ObjectTypes.BoosterParticle }, { ObjectTypes.CrystalPrize, ObjectTypes.CrystalParticle },
                 { ObjectTypes.HeartPrize, ObjectTypes.HeartParticle}, { ObjectTypes.LightningPrize, ObjectTypes.LightningParticle },
                 { ObjectTypes.StickerPrize, ObjectTypes.StickerParticle }, { ObjectTypes.ConfettiParticle, ObjectTypes.ConfettiParticle } };
         }
 
-        public void PinataHitMovement(GameObject objectToMove, GameObject spriteOff, GameObject spriteOn, Vector3 startingPos, Action animationEndCb)
+        public ObjectTypes GetPrizeParticleType(ObjectTypes prizeType)
         {
-            /*var screenHeight = Camera.main.orthographicSize * 2;
-            var screenWidth = Camera.main.orthographicSize * Camera.main.aspect;
-            var anotherScreenW = GeneralData.ScreenWidth;
-            var xMovDir = Randomizer.GetPositiveOrNegative();
-            var firstPos = new Vector3(objectToMove.transform.position.x + screenWidth * 
-                Randomizer.GetNumberInRange(_animParams.firstPosWidth.minVal, _animParams.firstPosWidth.maxVal) * xMovDir,
-                startingPos.y + screenHeight * Randomizer.GetNumberInRange(_animParams.firstPosHeight.minVal, _animParams.firstPosHeight.maxVal), 0);
-
-            var secondPos = new Vector3(firstPos.x + screenWidth * 
-                Randomizer.GetNumberInRange(_animParams.secondPosWidth.minVal, _animParams.secondPosWidth.maxVal) * -xMovDir,
-                startingPos.y - screenHeight * Randomizer.GetNumberInRange(_animParams.secondPosHeight.minVal, _animParams.secondPosHeight.maxVal), 0);
-
-            var thirdPos = new Vector3(secondPos.x + Randomizer.GetNumberInRange(_animParams.thirdPosWidth.minVal, _animParams.thirdPosWidth.maxVal) * -xMovDir,
-                startingPos.y + screenHeight * Randomizer.GetNumberInRange(_animParams.thirdPosHeight.minVal, _animParams.thirdPosHeight.maxVal), 0);
-
-            TweenCallback tweenCallback = new(animationEndCb);
-            Sequence movementSeq = DOTween.Sequence();
-            movementSeq.Append(objectToMove.transform.DOJump(firstPos, _animParams.firstPosJumpP, 1, _animParams.firstPosTime).SetEase(Ease.OutSine))
-                .AppendCallback(() => SwitchObjects(spriteOff, spriteOn))
-                .Append(objectToMove.transform.DOJump(secondPos, _animParams.secondPosJumpP, 1, _animParams.secondPosTime))
-                .Append(objectToMove.transform.DOMove(startingPos, _animParams.thirdPosTime).SetEase(Ease.InSine))
-                .AppendCallback(tweenCallback);*/
-
-
-            /*movementSeq.Append(objectToMove.transform.DOMove(firstPos, _animParams.firstPosTime).SetEase(Ease.OutSine))
-                .Append(objectToMove.transform.DOMove(secondPos, _animParams.secondPosTime).SetEase(Ease.InQuad))
-                .AppendCallback(()=>SwitchObjects(spriteOff, spriteOn))
-                .Append(objectToMove.transform.DOMove(thirdPos, _animParams.thirdPosTime).SetEase(Ease.InSine))
-                .Append(objectToMove.transform.DOMove(startingPos, _animParams.fourthPosTime).SetEase(Ease.InSine))
-                .AppendCallback(tweenCallback);*/
-            TallBounce(objectToMove, spriteOff, spriteOn, startingPos, animationEndCb).Play();
-            //movementSeq.Play();
+            return _pinataPrizeParticles[prizeType];
         }
 
-        public void MoveParticlesToShelf(Transform obj, Vector3 destination, Action<SpriteRenderer> animationEndCb, SpriteRenderer cbTarget)
+        public void PinataHitMovement(GameObject objectToMove, GameObject spriteOff, GameObject spriteOn, Vector3 startingPos, Action animationEndCb)
         {
-            TweenCallback<SpriteRenderer> tweenCallback = new(animationEndCb);
+            var movement = Randomizer.GetPositiveOrNegative() == 1
+                ? WideBounce(objectToMove, spriteOff, spriteOn, startingPos, animationEndCb)
+                : TallBounce(objectToMove, spriteOff, spriteOn, startingPos, animationEndCb);
+            movement.Play();
+        }
+
+        public void MoveParticlesToShelf(Transform obj, Vector3 destination, Action<SpriteRenderer, float> animationEndCb, SpriteRenderer cbTarget)
+        {
             Sequence movementSeq = DOTween.Sequence();
-            movementSeq.AppendInterval(Randomizer.GetNumberInRange(1.1f, 1.3f))
+            movementSeq.AppendInterval(1.1f)
                 .Append(obj.DOMove(destination, 0.25f))
-                .AppendCallback(() => animationEndCb(cbTarget));
+                .InsertCallback(1.1f + 0.15f, () => animationEndCb(cbTarget, 0.3f));
             movementSeq.Play();
         }
 
         public void MoveParticlesToShelf(Transform obj, Vector3 destination)
         {
-            //TweenCallback<SpriteRenderer> tweenCallback = new(animationEndCb);
             Sequence movementSeq = DOTween.Sequence();
-            movementSeq.AppendInterval(Randomizer.GetNumberInRange(1.1f, 1.3f))
+            movementSeq.AppendInterval(1.1f)
                 .Append(obj.DOMove(destination, 0.25f));
-                //.AppendCallback(() => animationEndCb(cbTarget));
             movementSeq.Play();
         }
 
-        public void FadeIn(SpriteRenderer spriteRenderer)
+        public void PinataIntro(Transform pinata, Vector3 destination)
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
-            spriteRenderer.DOFade(1, 0.3f).Play();
+            
         }
 
-        public void FadeOut(SpriteRenderer spriteRenderer)
+        public void FadeIn(SpriteRenderer spriteRenderer, float duration)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            spriteRenderer.DOFade(1, duration).Play();
+        }
+
+        public void FadeOut(SpriteRenderer spriteRenderer, float duration)
         {
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
-            spriteRenderer.DOFade(0, 0.3f).Play();
+            spriteRenderer.DOFade(0, duration).Play();
         }
 
         private void SwitchObjects(GameObject turnOff, GameObject turnOn)
@@ -98,7 +77,7 @@ namespace Assets.Scripts.Managers
         }
 
 
-        #region Pinata movement versions
+        #region Pinata movement variations
 
         private Sequence TallBounce(GameObject objectToMove, GameObject spriteOff, GameObject spriteOn, Vector3 startingPos, Action animationEndCb)
         {
@@ -111,17 +90,34 @@ namespace Assets.Scripts.Managers
             var thirdPos = startingPos;
             TweenCallback tweenCallback = new(animationEndCb);
             Sequence movementSeq = DOTween.Sequence();
-            movementSeq.Append(objectToMove.transform.DOJump(firstPos, 0.7f, 1, 0.3f).SetEase(Ease.OutSine))
+            movementSeq.Append(objectToMove.transform.DOJump(firstPos, 0.75f, 1, 0.3f).SetEase(Ease.OutSine))
                 .AppendCallback(() => SwitchObjects(spriteOff, spriteOn))
                 .Append(objectToMove.transform.DOJump(secondPos, 0.35f, 1, 0.2f))
-                .Append(objectToMove.transform.DOMove(startingPos, 0.25f).SetEase(Ease.InSine))
+                .Append(objectToMove.transform.DOMove(thirdPos, 0.25f).SetEase(Ease.InSine))
                 .AppendCallback(tweenCallback);
             return movementSeq;
         }
 
-        private void WideBounce()
+        private Sequence WideBounce(GameObject objectToMove, GameObject spriteOff, GameObject spriteOn, Vector3 startingPos, Action animationEndCb)
         {
-
+            var screenHalfHeight = GeneralData.HalfScreenHeight * 2;
+            var screenWidth = GeneralData.ScreenWidth;
+            var xMovDir = Randomizer.GetPositiveOrNegative();
+            var firstPos = new Vector3(objectToMove.transform.position.x + screenWidth * Randomizer.GetNumberInRange(0.125f, 0.145f) * xMovDir,
+                startingPos.y + screenHalfHeight * Randomizer.GetNumberInRange(0.01f, 0.015f), 0);
+            var secondPos = new Vector3(firstPos.x + screenWidth * Randomizer.GetNumberInRange(0.155f, 0.17f) * -xMovDir,
+                startingPos.y + screenHalfHeight * Randomizer.GetNumberInRange(0.005f, 0.01f), 0);
+            var thirdPos = new Vector3(firstPos.x + screenWidth * Randomizer.GetNumberInRange(0.02f, 0.03f), startingPos.y, 0);
+            var fourthPos = startingPos;
+            TweenCallback tweenCallback = new(animationEndCb);
+            Sequence movementSeq = DOTween.Sequence();
+            movementSeq.Append(objectToMove.transform.DOJump(firstPos, 0.65f, 1, 0.25f))
+                .AppendCallback(() => SwitchObjects(spriteOff, spriteOn))
+                .Append(objectToMove.transform.DOJump(secondPos, 0.3f, 1, 0.13f))
+                .Append(objectToMove.transform.DOJump(thirdPos, 0.2f, 1, 0.13f))
+                .Append(objectToMove.transform.DOMove(fourthPos, 0.16f).SetEase(Ease.InSine))
+                .AppendCallback(tweenCallback);
+            return movementSeq;
         }
 
         #endregion
