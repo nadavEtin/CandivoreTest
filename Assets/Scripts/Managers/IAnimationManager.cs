@@ -10,7 +10,8 @@ namespace Assets.Scripts.Managers
         Dictionary<ObjectTypes, ObjectTypes> PinataPrizeParticles { get; }
         void FadeIn(SpriteRenderer sprite);
         void FadeOut(SpriteRenderer sprite);
-        void MoveParticles(Transform obj, Vector3 destination, Action<SpriteRenderer> animationEndCb/*, SpriteRenderer cbTarget*/); //make an event
+        void MoveParticlesToShelf(Transform obj, Vector3 destination, Action<SpriteRenderer> animationEndCb, SpriteRenderer cbTarget);
+        void MoveParticlesToShelf(Transform obj, Vector3 destination);
         void PinataHitMovement(GameObject objectToMove, GameObject spriteOff, GameObject spriteOn, Vector3 startingPos, Action animationEndCb);
     }
 }

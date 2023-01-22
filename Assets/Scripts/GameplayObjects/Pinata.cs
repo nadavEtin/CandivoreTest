@@ -3,6 +3,7 @@ using Assets.Scripts.GameplayObjects.GameplayObjUtility;
 using Assets.Scripts.Managers;
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Utility;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -97,10 +98,11 @@ namespace Assets.Scripts.GameplayObjects
 
         private void SendPrize(ObjectTypes type, int amount)
         {
-            var prize = _prizeShelfContainer.ReceivePrize(type, amount);
             var prizeParticle = SpawnParticle(type);
-            _animationManager.MoveParticles(prizeParticle.transform, prize.shelfPos.position, _animationManager.FadeIn,
-                prize.prizeObj.GetComponent<SpriteRenderer>());
+            var prize = _prizeShelfContainer.ReceivePrize(type, amount, prizeParticle);
+            
+            /*_animationManager.MoveParticlesToShelf(prizeParticle.transform, prize.shelfPos.position, _animationManager.FadeIn,
+                prize.prizeObj.GetComponent<SpriteRenderer>());*/
             //create particle fx for the prize and send it to its pos on the shelf via animation
         }
 
@@ -128,6 +130,14 @@ namespace Assets.Scripts.GameplayObjects
 
         private void PinataMovementAnimEnd()
         {
+            StartCoroutine(AnimationDelay());
+            //_movementAnimPlaying = false;
+        }
+
+        //small delay to let particle animations finish
+        IEnumerator AnimationDelay()
+        {
+            yield return new WaitForSeconds(0.5f);
             _movementAnimPlaying = false;
         }
     }

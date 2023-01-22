@@ -50,7 +50,7 @@ namespace Assets.Scripts.Managers
             var shelfContainer = Instantiate(_assetRef.PrefabTypes[ObjectTypes.PrizeShelfContainer]);
             shelfContainer.transform.position = new Vector3(0, _gameParams.ShelfContainerHeightPos, 0);
             _shelfContainer = shelfContainer.GetComponent<IPrizeShelfContainer>();
-            _shelfContainer.Init(_assetRef);
+            _shelfContainer.Init(_assetRef, _animManager);
         }
     }
 }

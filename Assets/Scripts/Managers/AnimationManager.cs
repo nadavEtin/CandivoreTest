@@ -59,24 +59,36 @@ namespace Assets.Scripts.Managers
             //movementSeq.Play();
         }
 
-        public void MoveParticles(Transform obj, Vector3 destination, Action<SpriteRenderer> animationEndCb, SpriteRenderer cbTarget)
+        public void MoveParticlesToShelf(Transform obj, Vector3 destination, Action<SpriteRenderer> animationEndCb, SpriteRenderer cbTarget)
         {
             TweenCallback<SpriteRenderer> tweenCallback = new(animationEndCb);
             Sequence movementSeq = DOTween.Sequence();
-            movementSeq.AppendInterval(Randomizer.GetNumberInRange(1.8f, 2.2f))
-                .Append(obj.DOMove(destination, 0.4f))
+            movementSeq.AppendInterval(Randomizer.GetNumberInRange(1.1f, 1.3f))
+                .Append(obj.DOMove(destination, 0.25f))
                 .AppendCallback(() => animationEndCb(cbTarget));
             movementSeq.Play();
         }
 
-        public void FadeIn(SpriteRenderer sprite)
+        public void MoveParticlesToShelf(Transform obj, Vector3 destination)
         {
-            sprite.DOFade(1, 0.2f);
+            //TweenCallback<SpriteRenderer> tweenCallback = new(animationEndCb);
+            Sequence movementSeq = DOTween.Sequence();
+            movementSeq.AppendInterval(Randomizer.GetNumberInRange(1.1f, 1.3f))
+                .Append(obj.DOMove(destination, 0.25f));
+                //.AppendCallback(() => animationEndCb(cbTarget));
+            movementSeq.Play();
         }
 
-        public void FadeOut(SpriteRenderer sprite)
+        public void FadeIn(SpriteRenderer spriteRenderer)
         {
-            sprite.DOFade(0, 0.2f);
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            spriteRenderer.DOFade(1, 0.3f).Play();
+        }
+
+        public void FadeOut(SpriteRenderer spriteRenderer)
+        {
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            spriteRenderer.DOFade(0, 0.3f).Play();
         }
 
         private void SwitchObjects(GameObject turnOff, GameObject turnOn)
