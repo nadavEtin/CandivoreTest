@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Utility;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,20 +7,21 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
 {
     public class PinataPrizeGenerator : IPinataPrizeGenerator
     {
-        private GameParameters _gameParams;
-        private AssetReference _assetRef;
+        private readonly GameParameters _gameParams;
+        private readonly AssetReference _assetRef;
         private List<ObjectTypes> _prizes;
-        private int prizesPerClick;
+        private readonly int prizesPerClick;
 
         public PinataPrizeGenerator(AssetReference assetRef, GameParameters gameParams)
         {
             _assetRef = assetRef;
             _gameParams = gameParams;
-            _prizes = new List<ObjectTypes>();            
+            _prizes = new List<ObjectTypes>();
             GeneratePinataPrizes();
-            prizesPerClick = (int)(_prizes.Count / _gameParams.PinataClicksToDestroy * 0.85f);
+            prizesPerClick = (int)(_prizes.Count / _gameParams.PinataClicksToDestroy * 0.9f);
         }
 
+        //Return a list of prizes for the current hit
         public List<ObjectTypes> GetPinataPrizes(int hitPower, bool stillAlive)
         {
             var clickAmount = prizesPerClick * hitPower;
@@ -31,6 +31,7 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
             return currentClickPrizes;
         }
 
+        //Randomly generate prize types and amounts for this pinata
         private void GeneratePinataPrizes()
         {
             var selectedPrizeTypes = GetRandomPrizes(Randomizer.GetNumberInRange(3, 6));
@@ -50,7 +51,7 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
 
         private List<ObjectTypes> GetRandomPrizes(int amount)
         {
-            //randomize the prize types list then take the first N items
+            //Randomize the prize types list then take the first N items
             var prizeList = new List<ObjectTypes>(_assetRef.PinataPrizes);
             prizeList = Randomizer.ShuffleList(prizeList).Take(amount).ToList();
             return prizeList;

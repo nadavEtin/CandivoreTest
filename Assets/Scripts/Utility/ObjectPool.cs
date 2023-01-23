@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Assets.Scripts.ScriptableObjects;
+using System;
 using System.Collections.Generic;
-using Assets.Scripts.ScriptableObjects;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,7 +9,7 @@ namespace Assets.Scripts.Utility
     public class ObjectPool : IObjectPool
     {
         private readonly AssetReference _assetRefs;
-        private Dictionary<ObjectTypes, List<GameObject>> _objectPool;
+        private readonly Dictionary<ObjectTypes, List<GameObject>> _objectPool;
 
         public ObjectPool(AssetReference assetRefs)
         {
@@ -19,9 +19,10 @@ namespace Assets.Scripts.Utility
 
         public void AddObjectToPool(GameObject obj, ObjectTypes type)
         {
-            if(_objectPool.ContainsKey(type) == false)
+            if (_objectPool.ContainsKey(type) == false)
                 _objectPool.Add(type, new List<GameObject>());
-            
+
+            obj.SetActive(false);
             _objectPool[type].Add(obj);
             obj.SetActive(false);
         }

@@ -31,6 +31,7 @@ namespace Assets.Scripts.ScriptableObjects
                 { AudioTypes.PinataHitVoice, PinataHitVoice },
                 { AudioTypes.PinataFinalSmashVoice, PinataFinalSmashVoice }
             };
+
             SingleAudioClipTypes = new Dictionary<AudioTypes, AudioClip>
             {
                 { AudioTypes.PinataFinalSmashSound, PinataFinalSmashSound },

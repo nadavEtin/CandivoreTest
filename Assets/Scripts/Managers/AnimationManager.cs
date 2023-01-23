@@ -1,16 +1,19 @@
-﻿using Assets.Scripts.ScriptableObjects;
+﻿using Assets.Scripts.GameplayObjects;
+using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Utility;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
     public class AnimationManager : IAnimationManager
     {
-        private AnimationParameters _animParams;
-
+        //Used for quickly tweaking animation parameters
+        private readonly AnimationParameters _animParams;
+        //Associates the correct particle effect with its prize type
         private readonly Dictionary<ObjectTypes, ObjectTypes> _pinataPrizeParticles;
 
         public AnimationManager()
@@ -36,12 +39,12 @@ namespace Assets.Scripts.Managers
             movement.Play();
         }
 
-        public void MoveParticlesToShelf(Transform obj, Vector3 destination, Action<SpriteRenderer, float> animationEndCb, SpriteRenderer cbTarget)
+        public void MoveParticlesToShelf(Transform obj, ShelfPrizeData shelfPrize, Action<ShelfPrizeData> animationEndCb)
         {
             Sequence movementSeq = DOTween.Sequence();
             movementSeq.AppendInterval(1.1f)
-                .Append(obj.DOMove(destination, 0.25f))
-                .InsertCallback(1.1f + 0.15f, () => animationEndCb(cbTarget, 0.3f));
+                .Append(obj.DOMove(shelfPrize.shelfPos.position, 0.25f))
+                .InsertCallback(1.25f, () => animationEndCb(shelfPrize));
             movementSeq.Play();
         }
 
@@ -55,19 +58,30 @@ namespace Assets.Scripts.Managers
 
         public void PinataIntro(Transform pinata, Vector3 destination)
         {
-            
+            pinata.DOMove(destination, 1f).SetEase(Ease.OutBounce);
         }
 
-        public void FadeIn(SpriteRenderer spriteRenderer, float duration)
+        public void FadeSpriteIn(SpriteRenderer spriteRenderer, float duration)
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
+            spriteRenderer.color = SetColorAlpha(spriteRenderer.color, false);
             spriteRenderer.DOFade(1, duration).Play();
         }
 
-        public void FadeOut(SpriteRenderer spriteRenderer, float duration)
+        public void FadeSpriteOut(SpriteRenderer spriteRenderer, float duration)
         {
-            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 255);
+            spriteRenderer.color = SetColorAlpha(spriteRenderer.color, true);
             spriteRenderer.DOFade(0, duration).Play();
+        }
+
+        public void FadeTextIn(TextMeshPro text, float duration)
+        {
+            text.color = SetColorAlpha(text.color, false);
+            text.DOFade(1, duration).Play();
+        }
+
+        private Color SetColorAlpha(Color curColor, bool visible)
+        {
+            return new Color(curColor.r, curColor.g, curColor.b, visible ? 255 : 0);
         }
 
         private void SwitchObjects(GameObject turnOff, GameObject turnOn)

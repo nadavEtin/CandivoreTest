@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets.Scripts.Utility
 {
@@ -11,7 +9,7 @@ namespace Assets.Scripts.Utility
         {
             return UnityEngine.Random.Range(lowEnd, highEnd);
         }
-        
+
         public static int GetNumberInRange(int lowEnd, int highEnd)
         {
             return UnityEngine.Random.Range(lowEnd, highEnd);
@@ -29,7 +27,7 @@ namespace Assets.Scripts.Utility
         public static IList<T> ShuffleList<T>(IList<T> list)
         {
             System.Random rng = new System.Random();
-            return list.OrderBy(a => rng.Next()).ToList();            
+            return list.OrderBy(a => rng.Next()).ToList();
         }
     }
 }

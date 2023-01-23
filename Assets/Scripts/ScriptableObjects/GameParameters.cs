@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.ScriptableObjects
@@ -15,7 +14,7 @@ namespace Assets.Scripts.ScriptableObjects
         [Space(3)]
         public float IdlePinataScreenHeight;
         public int PinataClicksToDestroy, ShortClickPower, LongClickPower;
-        //minimum time of holding down the click to become a long click
+        //Minimum time of holding down the click to become a long click
         public float LongClickThreshold;
 
         [Space(10)]

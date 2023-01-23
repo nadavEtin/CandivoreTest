@@ -1,4 +1,3 @@
-using Assets.Scripts;
 using UnityEngine;
 
 namespace Assets.Scripts.GameplayObjects
@@ -13,7 +12,7 @@ namespace Assets.Scripts.GameplayObjects
             transform.position = _pinataAnchorPoint.position;
         }
 
-        void Update()
+        private void Update()
         {
             transform.position = _pinataAnchorPoint.position;
         }

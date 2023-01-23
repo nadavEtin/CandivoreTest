@@ -4,8 +4,9 @@ namespace Assets.Scripts.Utility
 {
     public abstract class BaseEventParams
     {
-        private static EmptyParams _empty = new EmptyParams();
+        private static readonly EmptyParams _empty = new EmptyParams();
 
+        //For simple events with no parameters
         public static EmptyParams Empty => _empty;
     }
 }

@@ -8,12 +8,12 @@ namespace Assets.Scripts.GameplayObjects
         private Action<float> _onClickCb;
         private bool _checkLongClick;
         private float _timeClickHeld;
-    
+
         public void init(Action<float> onclickCallback)
         {
             _onClickCb = onclickCallback;
         }
-    
+
         private void OnMouseDown()
         {
             _timeClickHeld = 0;
@@ -22,6 +22,7 @@ namespace Assets.Scripts.GameplayObjects
 
         private void Update()
         {
+            //Detects player click and determines its type
             if (_checkLongClick)
             {
                 _timeClickHeld += Time.deltaTime;

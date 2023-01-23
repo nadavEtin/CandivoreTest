@@ -27,7 +27,6 @@ namespace Assets.Scripts.GameplayObjects
         private List<GameObject> _childObjects;
         private Vector3 _pinataStartingPos;
         private bool _movementAnimPlaying;
-        private List<ObjectTypes> _pinataPrizes;
         private IPinataHitPoints _hitPoints;
         private IPrizeShelfContainer _prizeShelfContainer;
         private Transform _particleContainer;
@@ -44,10 +43,12 @@ namespace Assets.Scripts.GameplayObjects
 
             _prizeManager = new PinataPrizeGenerator(assetReference, gameParameters);
             _hitPoints = new PinataHitPoints(_gameParams);
-            _particleContainer = new GameObject().transform;
+            _particleContainer = new GameObject("ParticleFxContainer").transform;
+            EventBus.Subscribe(GameplayEvent.GameStart, GameStart);
+            AdditionalSetup();
         }
 
-        private void Start()
+        private void AdditionalSetup()
         {
             _childColliders = new List<IColliderScript> { _idleSprite.GetComponent<IColliderScript>(), _idleCrackedSprite.GetComponent<IColliderScript>() };
             _childObjects = new List<GameObject> { _idleSprite, _idleCrackedSprite, _hitSprite, _headSprite, _frontSprtie, _tailSprite };
@@ -63,8 +64,14 @@ namespace Assets.Scripts.GameplayObjects
 
         private void PositionPinata()
         {
-            transform.position = new Vector3(0, 0 + GeneralData.HalfScreenHeight * _gameParams.IdlePinataScreenHeight, 0);
-            _pinataStartingPos = transform.position;
+            _pinataStartingPos = new Vector3(0, 0 + GeneralData.HalfScreenHeight * _gameParams.IdlePinataScreenHeight, 0);
+            transform.position = new Vector3(0, GeneralData.HalfScreenHeight * 2f, 0);
+        }
+
+        private void GameStart(BaseEventParams eventParams)
+        {
+            //Lowers the pinata into view
+            _animationManager.PinataIntro(transform, _pinataStartingPos);
         }
 
         private void EnableDisableChildObjects(bool enable)
@@ -77,20 +84,24 @@ namespace Assets.Scripts.GameplayObjects
 
         private void PinataClick(float clickDuration)
         {
+            //Prevent pinata hits until the animations are done
             if (_movementAnimPlaying)
                 return;
 
-            int clickPower;
-            var stillAlive = _hitPoints.PinataClick(clickDuration, out clickPower);
+            var stillAlive = _hitPoints.PinataClick(clickDuration, out int clickPower);
             var clickPrizes = _prizeManager.GetPinataPrizes(clickPower, stillAlive);
             _audioManager.PinataClick(clickPower == _gameParams.ShortClickPower);
             PrepareClickPrizes(clickPrizes);
+
             if (stillAlive)
                 ClickAnimationAndParticles();
+            else
+                EventBus.Publish(GameplayEvent.GameEnd, BaseEventParams.Empty);
         }
 
         private void PrepareClickPrizes(List<ObjectTypes> prizes)
         {
+            //Sort the prizes by type and send them one by one
             var orderedPrizes = prizes.OrderByDescending(x => (int)x).ToList();
             while (orderedPrizes.Count > 0)
             {
@@ -100,10 +111,11 @@ namespace Assets.Scripts.GameplayObjects
             }
         }
 
+        //Pass the necessary data to the shelf container
         private void SendPrize(ObjectTypes type, int amount)
         {
             var prizeParticle = SpawnParticle(type);
-            var prize = _prizeShelfContainer.ReceivePrize(type, amount, prizeParticle);
+            _prizeShelfContainer.ReceivePrize(type, amount, prizeParticle);
         }
 
         private GameObject SpawnParticle(ObjectTypes type)
@@ -116,6 +128,7 @@ namespace Assets.Scripts.GameplayObjects
             return particle;
         }
 
+        //Pinata movement animation and confetti particles
         private void ClickAnimationAndParticles()
         {
             SpawnParticle(ObjectTypes.ConfettiParticle);
@@ -130,11 +143,16 @@ namespace Assets.Scripts.GameplayObjects
             StartCoroutine(AnimationDelay());
         }
 
-        //small delay to let particle animations finish
+        //Small delay to let prize and particle animations finish
         IEnumerator AnimationDelay()
         {
             yield return new WaitForSeconds(0.5f);
             _movementAnimPlaying = false;
+        }
+
+        private void OnDestroy()
+        {
+            EventBus.Subscribe(GameplayEvent.GameStart, GameStart);
         }
     }
 }

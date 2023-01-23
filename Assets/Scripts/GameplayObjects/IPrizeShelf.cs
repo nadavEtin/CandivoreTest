@@ -9,10 +9,10 @@ namespace Assets.Scripts.GameplayObjects
     {
         GameObject gameObject { get; }
 
-        List<ShelfPrize> _prizes { get; }
+        List<ShelfPrizeData> _prizes { get; }
 
         void Init(AssetReference assetReference, IAnimationManager animationManager);
 
-        ShelfPrize AddPrize(ObjectTypes prizeType, int amount, GameObject particleFx);
+        ShelfPrizeData AddPrize(ObjectTypes prizeType, int amount, GameObject particleFx);
     }
 }

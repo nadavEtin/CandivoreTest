@@ -19,6 +19,7 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjUtility
 
         private void OnParticleSystemStopped()
         {
+            //Send the inactive particle system to the object pool for later reuse
             _endCb?.Invoke(gameObject, _type);
         }
     }

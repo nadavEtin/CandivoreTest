@@ -6,7 +6,7 @@ namespace Assets.Scripts.GameplayObjects
 {
     public interface IPrizeShelfContainer
     {
-        ShelfPrize ReceivePrize(ObjectTypes prizeType, int amount, GameObject particleFx);
+        ShelfPrizeData ReceivePrize(ObjectTypes prizeType, int amount, GameObject particleFx);
 
         void Init(AssetReference assetReference, IAnimationManager animationManager);
     }

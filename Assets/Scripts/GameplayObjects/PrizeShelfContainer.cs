@@ -21,8 +21,9 @@ namespace Assets.Scripts.GameplayObjects
             }
         }
 
-        public ShelfPrize ReceivePrize(ObjectTypes prizeType, int amount, GameObject particleFx)
+        public ShelfPrizeData ReceivePrize(ObjectTypes prizeType, int amount, GameObject particleFx)
         {
+            //If prize type already exists on a shelf send it there, otherwise assign it to an empty position
             if (_prizePositions.ContainsKey(prizeType))
             {
                 return _prizePositions[prizeType].AddPrize(prizeType, amount, particleFx);

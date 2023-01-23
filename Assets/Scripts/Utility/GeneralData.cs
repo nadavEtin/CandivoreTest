@@ -2,7 +2,6 @@
 
 namespace Assets.Scripts.Utility
 {
-    
     public static class GeneralData
     {
         public static float HalfScreenHeight { private set; get; }

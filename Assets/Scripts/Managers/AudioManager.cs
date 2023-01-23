@@ -8,9 +8,9 @@ namespace Assets.Scripts.Managers
 {
     public class AudioManager : IAudioManager
     {
-        private List<AudioSource> _audioSources;
-        private AudioReference _audioRefs;
-        private GameParameters _gameParams;
+        private readonly List<AudioSource> _audioSources;
+        private readonly AudioReference _audioRefs;
+        private readonly GameParameters _gameParams;
 
         public AudioManager()
         {
@@ -37,7 +37,8 @@ namespace Assets.Scripts.Managers
                 return;
             }
 
-            AudioClip desiredClip = null;
+            //Get a random clip if multiple options are available
+            AudioClip desiredClip;
             if (_audioRefs.SingleAudioClipTypes.ContainsKey(type))
                 desiredClip = _audioRefs.SingleAudioClipTypes[type];
             else

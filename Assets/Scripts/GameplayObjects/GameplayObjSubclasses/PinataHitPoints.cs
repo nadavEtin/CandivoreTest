@@ -4,9 +4,9 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
 {
     public class PinataHitPoints : IPinataHitPoints
     {
-        //each "hit point" = 1 short click on the pinata
+        //Each "hit point" = 1 short click on the pinata
         private int _hitPoints;
-        private GameParameters _gameParams;
+        private readonly GameParameters _gameParams;
 
         public PinataHitPoints(GameParameters gameParameters)
         {
@@ -18,9 +18,8 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjSubclasses
         {
             power = ClickPower(clickDuration);
             _hitPoints -= power;
-            if(_hitPoints <= 0)
+            if (_hitPoints <= 0)
             {
-                //TODO: send game over event
                 return false;
             }
             else

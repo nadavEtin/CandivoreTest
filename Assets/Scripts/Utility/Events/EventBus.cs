@@ -1,43 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.Utility
 {
-    public enum GameplayEventType
+    public enum GameplayEvent
     {
-
+        GameStart, GameEnd
     }
 
     public static class EventBus
     {
-        private static Dictionary<GameplayEventType, List<Action<BaseEventParams>>> _subscription = 
-            new Dictionary<GameplayEventType, List<Action<BaseEventParams>>>();
+        private static readonly Dictionary<GameplayEvent, List<Action<BaseEventParams>>> _subscription =
+            new Dictionary<GameplayEvent, List<Action<BaseEventParams>>>();
 
-        public static void Subscribe(GameplayEventType eventType, Action<BaseEventParams> handler)
+        public static void Subscribe(GameplayEvent eventType, Action<BaseEventParams> handler)
         {
-            if (!_subscription.ContainsKey(eventType))     
+            if (_subscription.ContainsKey(eventType) == false)
                 _subscription.Add(eventType, new List<Action<BaseEventParams>>());
-            
-            if (!_subscription[eventType].Contains(handler))
+
+            if (_subscription[eventType].Contains(handler) == false)
                 _subscription[eventType].Add(handler);
         }
 
-        public static void Unsubscribe(GameplayEventType eventType, Action<BaseEventParams> handler)
+        public static void Unsubscribe(GameplayEvent eventType, Action<BaseEventParams> handler)
         {
-            if (!_subscription.ContainsKey(eventType))            
-                return;           
+            if (_subscription.ContainsKey(eventType) == false)
+                return;
 
             var handlersList = _subscription[eventType];
             handlersList.Remove(handler);
         }
 
-        public static void Publish(GameplayEventType eventType, BaseEventParams eventParams)
+        public static void Publish(GameplayEvent eventType, BaseEventParams eventParams)
         {
-            if (!_subscription.ContainsKey(eventType))           
-                return;            
+            if (_subscription.ContainsKey(eventType) == false)
+                return;
 
             var handlers = _subscription[eventType];
             for (int i = 0; i < handlers.Count; i++)
