@@ -60,6 +60,7 @@ MonoBehaviour:
   PrizeShelfContainer: {fileID: 3415218923770072493, guid: cb340b41d34e2e547821416854ec9a07, type: 3}
   Pinata: {fileID: 8962858467898671899, guid: 129afca098267784581f19ee4a06df47, type: 3}
   ConfettiParticle: {fileID: 6470918115184163093, guid: 6d467da7197cc924aaec4a517368115f, type: 3}
+  BigConfettiParticle: {fileID: 6470918115184163093, guid: dc4c067947823ce4e873e82a1af991a1, type: 3}
   PinataRope: {fileID: 3470982312684460624, guid: c38897ce7a12e8941884fefe3373187d, type: 3}
   Bomb: {fileID: 7052226617099007903, guid: 8538f1b94b15efd458dca61184d04821, type: 3}
   Heart: {fileID: 8018785542887057202, guid: ce4a02c0481deef4a85745a99ba27cce, type: 3}
@@ -73,3 +74,4 @@ MonoBehaviour:
   StickerParticle: {fileID: 7168880803896790048, guid: 32c8d7f16ea76ab448470193835f441a, type: 3}
   BoosterParticle: {fileID: 7168880803896790048, guid: 98aaf0ab80e172a44a4e6528538fee09, type: 3}
   CrystalParticle: {fileID: 7168880803896790048, guid: ff7e72b7594111446b2a0e04473fc405, type: 3}
+  BlueFlaxFx: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}

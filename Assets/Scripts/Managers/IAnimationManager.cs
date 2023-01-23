@@ -16,5 +16,7 @@ namespace Assets.Scripts.Managers
         ObjectTypes GetPrizeParticleType(ObjectTypes prizeType);
         void PinataIntro(Transform pinata, Vector3 destination);
         void FadeTextIn(TextMeshPro text, float duration);
+        void PinataExplosion(Transform head, Transform body, Transform tail);
+        void MoveTransform(Transform objToMove, Vector3 destination, float duration);
     }
 }

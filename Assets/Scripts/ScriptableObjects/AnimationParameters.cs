@@ -23,6 +23,7 @@ namespace Assets.Scripts.ScriptableObjects
         [Space(3)]
         public SerializableTuple firstPosWidth;
         public SerializableTuple firstPosHeight, secondPosWidth, secondPosHeight, thirdPosWidth, thirdPosHeight;
+        public float headRotatio, bodyRotation, tailRotation;
         public float firstPosTime, secondPosTime, thirdPosTime, fourthPosTime, firstPosJumpP, secondPosJumpP, thirdPosJumpP;
     }
 }

@@ -13,7 +13,7 @@ namespace Assets.Scripts.GameplayObjects
     public class Pinata : MonoBehaviour, IPinata
     {
         [SerializeField] private GameObject _idleSprite, _idleCrackedSprite, _hitSprite;
-        [SerializeField] private GameObject _headSprite, _frontSprtie, _tailSprite;
+        [SerializeField] private GameObject _headSprite, _bodySprtie, _tailSprite;
         [SerializeField] private Transform _ropeAnchorPoint, _prizeSpawnPoint;
 
         private IAudioManager _audioManager;
@@ -31,6 +31,12 @@ namespace Assets.Scripts.GameplayObjects
         private IPrizeShelfContainer _prizeShelfContainer;
         private Transform _particleContainer;
 
+        private void Awake()
+        {
+            EventBus.Subscribe(GameplayEvent.GameEnd, GameEnd);
+            EventBus.Subscribe(GameplayEvent.GameStart, GameStart);
+        }
+
         public void Init(IAudioManager audioManager, IAnimationManager animationManager,
             IObjectPool objectPool, IPrizeShelfContainer prizeShelf, AssetReference assetReference, GameParameters gameParameters)
         {
@@ -43,22 +49,21 @@ namespace Assets.Scripts.GameplayObjects
 
             _prizeManager = new PinataPrizeGenerator(assetReference, gameParameters);
             _hitPoints = new PinataHitPoints(_gameParams);
-            _particleContainer = new GameObject("ParticleFxContainer").transform;
-            EventBus.Subscribe(GameplayEvent.GameStart, GameStart);
+            _particleContainer = new GameObject("ParticleFxContainer").transform;            
             AdditionalSetup();
         }
 
         private void AdditionalSetup()
         {
             _childColliders = new List<IColliderScript> { _idleSprite.GetComponent<IColliderScript>(), _idleCrackedSprite.GetComponent<IColliderScript>() };
-            _childObjects = new List<GameObject> { _idleSprite, _idleCrackedSprite, _hitSprite, _headSprite, _frontSprtie, _tailSprite };
+            _childObjects = new List<GameObject> { _idleSprite, _idleCrackedSprite, _hitSprite, _headSprite, _bodySprtie, _tailSprite };
             for (int i = 0; i < _childColliders.Count; i++)
             {
                 _childColliders[i].init(PinataClick);
             }
             EnableDisableChildObjects(false);
             _idleSprite.SetActive(true);
-            Instantiate(_assetReference.PrefabTypes[ObjectTypes.PinataRope]).GetComponent<IRope>().Init(_ropeAnchorPoint);
+            Instantiate(_assetReference.PrefabTypes[ObjectTypes.PinataRope]).GetComponent<IRope>().Init(_ropeAnchorPoint, _animationManager);
             PositionPinata();
         }
 
@@ -82,6 +87,18 @@ namespace Assets.Scripts.GameplayObjects
             }
         }
 
+        private void GameEnd(BaseEventParams eventParams)
+        {
+            EnableDisableChildObjects(false);
+            _headSprite.SetActive(true);
+            _bodySprtie.SetActive(true);
+            _tailSprite.SetActive(true);
+            _audioManager.PlaySound(AudioTypes.PinataFinalSmashSound);
+            _audioManager.PlaySound(AudioTypes.PinataFallDownSound);
+            SpawnParticle(ObjectTypes.BigConfettiParticle);
+            _animationManager.PinataExplosion(_headSprite.transform, _bodySprtie.transform, _tailSprite.transform);
+        }
+
         private void PinataClick(float clickDuration)
         {
             //Prevent pinata hits until the animations are done
@@ -89,6 +106,9 @@ namespace Assets.Scripts.GameplayObjects
                 return;
 
             var stillAlive = _hitPoints.PinataClick(clickDuration, out int clickPower);
+            if(stillAlive == false)
+                _prizeSpawnPoint.localPosition = new Vector3(_prizeSpawnPoint.localPosition.x, _prizeSpawnPoint.localPosition.y + 0.8f, 0);            
+
             var clickPrizes = _prizeManager.GetPinataPrizes(clickPower, stillAlive);
             _audioManager.PinataClick(clickPower == _gameParams.ShortClickPower);
             PrepareClickPrizes(clickPrizes);
@@ -152,7 +172,8 @@ namespace Assets.Scripts.GameplayObjects
 
         private void OnDestroy()
         {
-            EventBus.Subscribe(GameplayEvent.GameStart, GameStart);
+            EventBus.Unsubscribe(GameplayEvent.GameStart, GameStart);
+            EventBus.Unsubscribe(GameplayEvent.GameEnd, GameEnd);
         }
     }
 }

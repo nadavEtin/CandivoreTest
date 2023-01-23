@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prizeShelves:
-  - {fileID: 2389036970597437011}
   - {fileID: 6983927328375423224}
+  - {fileID: 2389036970597437011}
 --- !u!1001 &729132295381174154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9100158331285748643, guid: ad7528d6fd44d074a896d31e68e31de3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4
+      value: -3.8
       objectReference: {fileID: 0}
     - target: {fileID: 9100158331285748643, guid: ad7528d6fd44d074a896d31e68e31de3, type: 3}
       propertyPath: m_LocalPosition.z

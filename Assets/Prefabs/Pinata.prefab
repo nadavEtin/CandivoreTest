@@ -431,7 +431,7 @@ MonoBehaviour:
   _idleCrackedSprite: {fileID: 6985891982945672025}
   _hitSprite: {fileID: 8962858468244977371}
   _headSprite: {fileID: 8962858468612643208}
-  _frontSprtie: {fileID: 8962858469328008700}
+  _bodySprtie: {fileID: 8962858469328008700}
   _tailSprite: {fileID: 8962858468117103329}
   _ropeAnchorPoint: {fileID: 441438429307070230}
   _prizeSpawnPoint: {fileID: 5502252079565086425}
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 8962858469328008691}
   - component: {fileID: 8962858469328008690}
   m_Layer: 0
-  m_Name: Front
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

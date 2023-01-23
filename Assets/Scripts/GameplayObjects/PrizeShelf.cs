@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using Assets.Scripts.ScriptableObjects;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -44,9 +45,14 @@ namespace Assets.Scripts.GameplayObjects
             _animationManager = animationManager;
         }
 
+        public ShelfPrizeData GetShelfPrize(ObjectTypes type)
+        {
+            return _prizes.FirstOrDefault(e => e.type == type);
+        }
+
         public ShelfPrizeData AddPrize(ObjectTypes prizeType, int amount, GameObject particleFx)
         {
-            var matchingPrize = _prizes.FirstOrDefault(e => e.type == prizeType);
+            var matchingPrize = GetShelfPrize(prizeType);//_prizes.FirstOrDefault(e => e.type == prizeType);
 
             //Prize type already exists on this shelf
             if (matchingPrize != null)

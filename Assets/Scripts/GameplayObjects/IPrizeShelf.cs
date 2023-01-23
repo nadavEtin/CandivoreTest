@@ -7,12 +7,11 @@ namespace Assets.Scripts.GameplayObjects
 {
     public interface IPrizeShelf
     {
-        GameObject gameObject { get; }
-
         List<ShelfPrizeData> _prizes { get; }
 
         void Init(AssetReference assetReference, IAnimationManager animationManager);
 
         ShelfPrizeData AddPrize(ObjectTypes prizeType, int amount, GameObject particleFx);
+        ShelfPrizeData GetShelfPrize(ObjectTypes type);
     }
 }

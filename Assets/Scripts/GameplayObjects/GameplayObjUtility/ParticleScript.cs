@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.GameplayObjects.GameplayObjUtility
 {
+    [RequireComponent(typeof(ParticleSystem))]
     public class ParticleScript : MonoBehaviour, IParticleScript
     {
+        public ParticleSystem ParticleSystem { get; private set; }
         private Action<GameObject, ObjectTypes> _endCb;
         private ObjectTypes _type;
 
@@ -13,7 +15,8 @@ namespace Assets.Scripts.GameplayObjects.GameplayObjUtility
         {
             _endCb = endCb;
             _type = type;
-            var mainModule = GetComponent<ParticleSystem>().main;
+            ParticleSystem = GetComponent<ParticleSystem>();
+            var mainModule = ParticleSystem.main;
             mainModule.stopAction = ParticleSystemStopAction.Callback;
         }
 

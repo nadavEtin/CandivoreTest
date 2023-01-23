@@ -8,6 +8,7 @@ namespace Assets.Scripts.ScriptableObjects
         [Header("Prize shelves")]
         [Space(3)]
         public float ShelfContainerHeightPos;
+        public float GameEndShelfContainerPos;
 
         [Space(10)]
         [Header("Pinata")]
