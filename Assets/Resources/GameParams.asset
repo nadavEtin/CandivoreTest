@@ -15,7 +15,7 @@ MonoBehaviour:
   ShelfContainerHeightPos: -0.25
   GameEndShelfContainerPos: 1.45
   IdlePinataScreenHeight: 0.3
-  PinataClicksToDestroy: 3
+  PinataClicksToDestroy: 5
   ShortClickPower: 1
   LongClickPower: 2
   LongClickThreshold: 1
