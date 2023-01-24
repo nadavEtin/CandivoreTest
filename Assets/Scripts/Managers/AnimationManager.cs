@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
 {
@@ -77,23 +78,37 @@ namespace Assets.Scripts.Managers
             objToMove.DOMove(destination, duration);
         }
 
-        public void FadeSpriteIn(SpriteRenderer spriteRenderer, float duration)
+        public void MoveTransform(Transform objToMove, Vector3 destination, float duration, float delay)
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.AppendInterval(delay)
+                .Append(objToMove.DOMove(destination, duration));
+            sequence.Play();
+        }
+
+        public void FadeIn(SpriteRenderer spriteRenderer, float duration)
         {
             spriteRenderer.color = SetColorAlpha(spriteRenderer.color, false);
             spriteRenderer.DOFade(1, duration).Play();
         }
 
-        public void FadeSpriteOut(SpriteRenderer spriteRenderer, float duration)
-        {
-            spriteRenderer.color = SetColorAlpha(spriteRenderer.color, true);
-            spriteRenderer.DOFade(0, duration).Play();
-        }
-
-        public void FadeTextIn(TextMeshPro text, float duration)
+        public void FadeIn(TextMeshPro text, float duration)
         {
             text.color = SetColorAlpha(text.color, false);
             text.DOFade(1, duration).Play();
         }
+
+        public void FadeIn(Image image, float duration)
+        {
+            image.color = SetColorAlpha(image.color, false);
+            image.DOFade(1, duration).Play();
+        }
+
+        public void FadeOut(SpriteRenderer spriteRenderer, float duration)
+        {
+            spriteRenderer.color = SetColorAlpha(spriteRenderer.color, true);
+            spriteRenderer.DOFade(0, duration).Play();
+        }        
 
         private Color SetColorAlpha(Color curColor, bool visible)
         {

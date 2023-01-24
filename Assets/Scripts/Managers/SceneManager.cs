@@ -2,12 +2,16 @@
 using Assets.Scripts.ScriptableObjects;
 using Assets.Scripts.Utility;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
 {
     public class SceneManager : MonoBehaviour
     {
+        [SerializeField] private Button _restartBtn;
+
         private AssetReference _assetRef;
         private GameParameters _gameParams;
         private IAudioManager _audioManager;
@@ -66,6 +70,13 @@ namespace Assets.Scripts.Managers
             StartCoroutine(GameEndActions());
         }
 
+        private void PlayFireworks()
+        {
+            var fireworksList = Instantiate(_assetRef.PrefabTypes[ObjectTypes.Fireworks]).GetComponent<FireworksScript>().Effects;
+            StartCoroutine(Fireworks(fireworksList));
+            
+        }
+
         private void OnDestroy()
         {
             EventBus.Unsubscribe(GameplayEvent.GameStart, GameStart);
@@ -74,12 +85,25 @@ namespace Assets.Scripts.Managers
 
         IEnumerator GameEndActions()
         {
-            //Wait for animations to finish
+            //Wait for pinata movement animations to finish
             yield return new WaitForSeconds(1.5f);
             var endShelfContainerPos = new Vector3(0, _gameParams.GameEndShelfContainerPos, 0);
             _animationManager.MoveTransform(_shelfContainerObj.transform, endShelfContainerPos, 0.5f);
             yield return new WaitForSeconds(0.5f);
+            _animationManager.FadeIn(_restartBtn.image, 0.5f);
             _shelfContainer.PlayGameEndAnimations();
+            PlayFireworks();
+        }
+
+        IEnumerator Fireworks(List<ParticleSystem> fireworks)
+        {
+            yield return new WaitForSeconds(5);
+            for (int i = 0; i < fireworks.Count; i++)
+            {
+                fireworks[i].gameObject.SetActive(true);
+                fireworks[i].Play();
+                yield return new WaitForSeconds(0.5f);
+            }
         }
     }
 }

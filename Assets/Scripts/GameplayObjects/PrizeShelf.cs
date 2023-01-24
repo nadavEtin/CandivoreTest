@@ -101,10 +101,10 @@ namespace Assets.Scripts.GameplayObjects
 
         private void ShowPrize(ShelfPrizeData shelfPrize)
         {
-            _animationManager.FadeSpriteIn(shelfPrize.prizeObj.GetComponent<SpriteRenderer>(), 0.3f);
-            _animationManager.FadeSpriteIn(shelfPrize.amountDisplay.GetComponentInChildren<SpriteRenderer>(), 0.3f);
+            _animationManager.FadeIn(shelfPrize.prizeObj.GetComponent<SpriteRenderer>(), 0.3f);
+            _animationManager.FadeIn(shelfPrize.amountDisplay.GetComponentInChildren<SpriteRenderer>(), 0.3f);
             var text = shelfPrize.amountDisplay.GetComponentInChildren<TextMeshPro>();
-            _animationManager.FadeTextIn(text, 0.3f);
+            _animationManager.FadeIn(text, 0.3f);
             UpdatePrizeAmountText(text, shelfPrize.prizeAmount);
         }
 
@@ -116,7 +116,7 @@ namespace Assets.Scripts.GameplayObjects
         private void ShowShelf()
         {
             _spriteRenderer.enabled = true;
-            _animationManager.FadeSpriteIn(_spriteRenderer, 0.4f);
+            _animationManager.FadeIn(_spriteRenderer, 0.4f);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Assets.Scripts.ScriptableObjects
         StickerPrize, BoosterPrize, CrystalPrize,
         ConfettiParticle, BigConfettiParticle, PrizeShelfContainer, PinataRope, Pinata,
         BombParticle, HeartParticle, LightningParticle, StickerParticle, BoosterParticle, 
-        CrystalParticle, BlueFlashFx
+        CrystalParticle, BlueFlashFx, Fireworks
     }
 
     [CreateAssetMenu(fileName = "AssetReference", menuName = "ScriptableObjects/Asset Reference")]
@@ -28,7 +28,7 @@ namespace Assets.Scripts.ScriptableObjects
                 { ObjectTypes.CrystalPrize, Crystal }, { ObjectTypes.HeartPrize, Heart}, { ObjectTypes.LightningPrize, Lightning },
                 { ObjectTypes.StickerPrize, Sticker }, { ObjectTypes.BombParticle, BombParticle }, { ObjectTypes.BoosterParticle, BoosterParticle },
                 { ObjectTypes.CrystalParticle, CrystalParticle }, { ObjectTypes.HeartParticle, HeartParticle }, { ObjectTypes.BlueFlashFx, BlueFlaxFx },
-                { ObjectTypes.LightningParticle, LightningParticle }, { ObjectTypes.StickerParticle, StickerParticle }
+                { ObjectTypes.LightningParticle, LightningParticle }, { ObjectTypes.StickerParticle, StickerParticle }, { ObjectTypes.Fireworks, Fireworks}
             };
 
             PinataPrizes = new List<ObjectTypes> { ObjectTypes.BombPrize, ObjectTypes.BoosterPrize,
@@ -59,7 +59,12 @@ namespace Assets.Scripts.ScriptableObjects
         [SerializeField] private GameObject Bomb;
         [SerializeField] private GameObject Heart, Lightning, Sticker, Booster, Crystal;
         [SerializeField] private GameObject BombParticle, HeartParticle, LightningParticle, StickerParticle, BoosterParticle, CrystalParticle;
-        [SerializeField] private GameObject BlueFlaxFx;
+
+        [Space(10)]
+        [Header("Effects")]
+        [Space(3)]
+        [SerializeField] private GameObject BlueFlaxFx; 
+        [SerializeField] private GameObject Fireworks;
     }
 }
 

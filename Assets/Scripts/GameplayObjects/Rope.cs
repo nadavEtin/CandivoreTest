@@ -29,7 +29,7 @@ namespace Assets.Scripts.GameplayObjects
 
         private void GameEnd(BaseEventParams eventParams)
         {
-            _animationManager.FadeSpriteOut(_sprite, 0.3f);
+            _animationManager.FadeOut(_sprite, 0.3f);
         }
 
         private void OnDestroy()

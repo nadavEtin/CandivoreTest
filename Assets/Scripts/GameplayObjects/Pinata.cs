@@ -110,13 +110,21 @@ namespace Assets.Scripts.GameplayObjects
                 _prizeSpawnPoint.localPosition = new Vector3(_prizeSpawnPoint.localPosition.x, _prizeSpawnPoint.localPosition.y + 0.8f, 0);            
 
             var clickPrizes = _prizeManager.GetPinataPrizes(clickPower, stillAlive);
-            _audioManager.PinataClick(clickPower == _gameParams.ShortClickPower);
+            
             PrepareClickPrizes(clickPrizes);
 
             if (stillAlive)
+            {
+                _audioManager.PinataClick(clickPower == _gameParams.ShortClickPower);
                 ClickAnimationAndParticles();
+            }
             else
+            {
+                _audioManager.PlaySound(AudioTypes.PinataFinalSmashSound);
+                _audioManager.PlaySound(AudioTypes.PinataFinalSmashVoice);
                 EventBus.Publish(GameplayEvent.GameEnd, BaseEventParams.Empty);
+            }
+                
         }
 
         private void PrepareClickPrizes(List<ObjectTypes> prizes)

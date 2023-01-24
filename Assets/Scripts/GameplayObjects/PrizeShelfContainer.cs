@@ -61,17 +61,25 @@ namespace Assets.Scripts.GameplayObjects
             _prizePositions = new Dictionary<ObjectTypes, IPrizeShelf>();
         }
 
-        private GameObject PlayShelfPrizeAnimations(ObjectTypes type, ShelfPrizeData prizeData)
+        private GameObject PlayGameEndAnimations(ObjectTypes type, ShelfPrizeData prizeData)
         {
             var particleObj = _objectPool.GetObjectFromPool(_animationManager.GetPrizeParticleType(type));
             var particleScript = particleObj.GetComponent<IParticleScript>();
             var psMain = particleObj.GetComponent<IParticleScript>().ParticleSystem.main;
             var psShape = particleObj.GetComponent<IParticleScript>().ParticleSystem.shape;
+            var psRenderer = particleObj.GetComponent<ParticleSystemRenderer>();
             particleScript.Init(_objectPool.AddObjectToPool, _animationManager.GetPrizeParticleType(type));
-            psMain.startSpeed = 5;
-            particleScript.ParticleSystem.shape.shapeType = ParticleSystemShapeType.Sphere;
             particleObj.transform.position = prizeData.shelfPos.position;
+            psMain.startSpeed = 2;
+            psMain.startSize = 0.75f;
+            psShape.shapeType = ParticleSystemShapeType.Sphere;
+            psShape.angle = 360;
+            psRenderer.sortingOrder = 4;
             particleObj.GetComponent<ParticleSystem>().Play();
+            var flashFx = _objectPool.GetObjectFromPool(ObjectTypes.BlueFlashFx);
+            flashFx.GetComponent<IParticleScript>().Init(_objectPool.AddObjectToPool, ObjectTypes.BlueFlashFx);
+            flashFx.transform.position = prizeData.shelfPos.position;
+            flashFx.GetComponent<ParticleSystem>().Play();
             return particleObj;
         }
 
@@ -80,7 +88,9 @@ namespace Assets.Scripts.GameplayObjects
             foreach (var key in _prizePositions.Keys)
             {
                 var prizeData = _prizePositions[key].GetShelfPrize(key);
-                PlayShelfPrizeAnimations(prizeData.type, prizeData);
+                var particleSys = PlayGameEndAnimations(prizeData.type, prizeData);
+                var corner = Randomizer.GetPositiveOrNegative() == 1 ? GeneralData.TopLeftCorner : GeneralData.TopRightCorner;
+                _animationManager.MoveTransform(particleSys.transform, corner * 1.7f, 0.5f, 0.7f);
                 yield return new WaitForSeconds(1.3f);
             }
         }

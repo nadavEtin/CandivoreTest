@@ -18,6 +18,6 @@ MonoBehaviour:
   PinataClicksToDestroy: 3
   ShortClickPower: 1
   LongClickPower: 2
-  LongClickThreshold: 2.5
+  LongClickThreshold: 1
   MusicVolume: 0.5
   SoundVolume: 0.6
