@@ -35,15 +35,6 @@ namespace Assets.Scripts.ScriptableObjects
                 ObjectTypes.CrystalPrize, ObjectTypes.HeartPrize, ObjectTypes.LightningPrize, ObjectTypes.StickerPrize};
         }
 
-        [Header("Sprites")]
-        [Space(3)]
-        [SerializeField] private List<Sprite> bombs = new List<Sprite>();
-        [SerializeField] private List<Sprite> hearts = new List<Sprite>();
-        [SerializeField] private List<Sprite> crystals = new List<Sprite>();
-        [SerializeField] private List<Sprite> lightning = new List<Sprite>();
-        [SerializeField] private List<Sprite> stickers = new List<Sprite>();
-        [SerializeField] private List<Sprite> boosters = new List<Sprite>();
-
         [Space(10)]
         [Header("Gameplay objects")]
         [Space(3)]

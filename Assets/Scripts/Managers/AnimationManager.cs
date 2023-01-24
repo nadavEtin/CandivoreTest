@@ -16,11 +16,10 @@ namespace Assets.Scripts.Managers
         private readonly AnimationParameters _animParams;
         //Associates the correct particle effect with its prize type
         private readonly Dictionary<ObjectTypes, ObjectTypes> _pinataPrizeParticles;
-        private float screenHalfHeight, screenFullHeight, screenWidth;
+        private float screenFullHeight, screenWidth;
 
         public AnimationManager()
         {
-            screenHalfHeight = GeneralData.HalfScreenHeight;
             screenFullHeight = GeneralData.HalfScreenHeight * 2;
             screenWidth = GeneralData.ScreenWidth;
             _animParams = Resources.Load<AnimationParameters>("AnimationParams");
